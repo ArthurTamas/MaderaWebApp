@@ -11,6 +11,6 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
+    Au travail bande de fiottes
   </body>
 </html>
