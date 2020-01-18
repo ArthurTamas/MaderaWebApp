@@ -3,4 +3,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+    <servlet>
+        <servlet-name>PremiereServlet</servlet-name>
+        <servlet-class>com.servlets.PremiereServlet</servlet-class>
+    </servlet>
+    
+    <!-- mapping -->
+    <servlet-mapping>
+        <servlet-name>PremiereServlet</servlet-name>
+        <url-pattern>/PremiereServlet</url-pattern>
+    </servlet-mapping>
 </web-app>
