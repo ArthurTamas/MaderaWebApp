@@ -11,6 +11,7 @@
           <element id="library" level="project" name="joda-time-2.1" />
           <element id="library" level="project" name="JPA 2.0-2.0" />
           <element id="library" level="project" name="Hibernate 5.4.9-5.4.9" />
+          <element id="library" level="project" name="jstl-1.2" />
         </element>
       </element>
     </root>
