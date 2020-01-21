@@ -22,8 +22,16 @@
         <servlet-name>CreationClient</servlet-name>
         <servlet-class>com.servlets.CreationClient</servlet-class>
     </servlet>
-    
+    <servlet>
+        <servlet-name>GestionTestJDBC</servlet-name>
+        <servlet-class>com.servlets.GestionTestJDBC</servlet-class>
+    </servlet>
+
     <!-- mapping -->
+    <servlet-mapping>
+        <servlet-name>GestionTestJDBC</servlet-name>
+        <url-pattern>/testjdbc</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PremiereServlet</servlet-name>
         <url-pattern>/PremiereServlet</url-pattern>

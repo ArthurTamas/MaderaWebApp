@@ -12,6 +12,7 @@
           <element id="library" level="project" name="JPA 2.0-2.0" />
           <element id="library" level="project" name="Hibernate 5.4.9-5.4.9" />
           <element id="library" level="project" name="jstl-1.2" />
+          <element id="library" level="project" name="mysql-connector-java-8.0.19" />
         </element>
       </element>
     </root>
