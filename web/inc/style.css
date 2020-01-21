@@ -41,3 +41,20 @@ form input.sansLabel {
     font-style: italic;
     color: #E8A22B;
 }
+
+/* Blocs constituants --------------------------------------------
+------------------------------ */
+div#menu{
+    border: 1px solid #0568CD;
+    padding: 10px;
+    margin: 10px;
+}
+div#corps{
+    margin: 10px;
+}
+form .erreur {
+    color: #900;
+}
+form .succes {
+    color: #090;
+}

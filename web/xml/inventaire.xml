@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inventaire>
+    <livre>
+        <auteur>Pierre</auteur>
+        <titre>D&#233;veloppez vos applications web avec JRuby !</titre>
+        <date>Janvier 2012</date>
+        <prix>22</prix>
+        <stock>127</stock>
+        <minimum>10</minimum>
+    </livre>
+    <livre>
+        <auteur>Paul</auteur>
+        <titre>D&#233;couvrez la puissance du langage Perl</titre>
+        <date>Avril 2017</date>
+        <prix>26</prix>
+        <stock>74</stock>
+        <minimum>10</minimum>
+    </livre>
+    <livre>
+        <auteur>Matthieu</auteur>
+        <titre>Apprenez &#224; programmer en C</titre>
+        <date>Novembre 2009</date>
+        <prix>25</prix>
+        <stock>19</stock>
+        <minimum>20</minimum>
+    </livre>
+    <livre>
+        <auteur>Matthieu</auteur>
+        <titre>Concevez votre site web avec PHP et MySQL</titre>
+        <date>Mars 2010</date>
+        <prix>30</prix>
+        <stock>7</stock>
+        <minimum>20</minimum>
+    </livre>
+    <livre>
+        <auteur>Cysboy</auteur>
+        <titre>La programmation en Java</titre>
+        <date>Septembre 2010</date>
+        <prix>29</prix>
+        <stock>2000</stock>
+        <minimum>20</minimum>
+    </livre>
+</inventaire>

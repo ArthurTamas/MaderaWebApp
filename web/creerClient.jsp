@@ -1,49 +1,50 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: arthu
-  Date: 19/01/2020
-  Time: 18:10
-  To change this template use File | Settings | File Templates.
---%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8" />
+        <meta charset="utf-8"/>
         <title>Création d'un client</title>
-        <link type="text/css" rel="stylesheet" href="inc/style.css"
-        />
+        <link type="text/css" rel="stylesheet" href="<c:url
+value="/inc/style.css"/>"/>
     </head>
     <body>
+        <c:import url="/inc/menu.jsp"/>
         <div>
-            <form method="get" action="creationClient">
+            <form method="post" action="<c:url value="/creationClient"/>">
                 <fieldset>
                     <legend>Informations client</legend>
-                    <label for="nomClient">Nom <span
-                            class="requis">*</span></label>
+                    <label for="nomClient">Nom <span class="requis">*</span></label>
                     <input type="text" id="nomClient"
-                           name="nomClient" value="" size="20" maxlength="20" />
-                    <br />
-                    <label for="prenomClient">Prenom </label>
+                           name="nomClient" value="<c:out value="${client.nom}"/>" size="30"
+                           maxlength="30"/>
+                    <span class="erreur">${form.erreurs['nomClient']}</span>
+                    <br/>
+                    <label for="prenomClient">Prénom </label>
                     <input type="text" id="prenomClient"
-                           name="prenomClient" value="" size="20" maxlength="20" />
-                    <br />
-                    <label for="adresseClient">Adresse de livraison
-                        <span class="requis">*</span></label>
+                           name="prenomClient" value="<c:out value="${client.prenom}"/>"
+                           size="30" maxlength="30"/>
+                    <span class="erreur">${form.erreurs['prenomClient']}</span>
+                    <br/>
+                    <label for="adresseClient">Adresse delivraison <span class="requis">*</span></label>
                     <input type="text" id="adresseClient"
-                           name="adresseClient" value="" size="20" maxlength="20" />
-                    <br />
-                    <label for="telephoneClient">Numéro de téléphone
-                        <span class="requis">*</span></label>
+                           name="adresseClient" value="<c:out value="${client.adresse}"/>"
+                           size="30" maxlength="60"/>
+                    <span class="erreur">${form.erreurs['adresseClient']}</span>
+                    <br/>
+                    <label for="telephoneClient">Numéro de téléphone <span class="requis">*</span></label>
                     <input type="text" id="telephoneClient"
-                           name="telephoneClient" value="" size="20" maxlength="20" />
-                    <br />
+                           name="telephoneClient" value="<c:out value="${client.telephone}"/>" size="30" maxlength="30"/>
+                    <span class="erreur">${form.erreurs['telephoneClient']}</span>
+                    <br/>
                     <label for="emailClient">Adresse email</label>
                     <input type="email" id="emailClient"
-                           name="emailClient" value="" size="20" maxlength="60" />
-                    <br />
+                           name="emailClient" value="<c:out value="${client.email}"/>"
+                           size="30" maxlength="60"/>
+                    <span class="erreur">${form.erreurs['emailClient']}</span>
+                    <br/>
+                    <p class="info">${ form.resultat }</p>
                 </fieldset>
-                <input type="submit" value="Valider" />
-                <input type="reset" value="Remettre à zéro" /> <br
+                <input type="submit" value="Valider"/>
+                <input type="reset" value="Remettre à zéro"/> <br
             />
             </form>
         </div>
