@@ -11,25 +11,32 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.beans.Client;
+import com.beans.Commande;
 import com.dao.ClientDao;
+import com.dao.CommandeDao;
 import com.dao.DAOFactory;
-import com.forms.CreationClientForm;
+import com.forms.CreationCommandeForm;
 
-public class CreationClient extends HttpServlet {
-    public static final String CONF_DAO_FACTORY = "daofactory";
-    public static final String CHEMIN           = "chemin";
-    public static final String ATT_CLIENT       = "client";
-    public static final String ATT_FORM         = "form";
-    public static final String SESSION_CLIENTS  = "clients";
+public class CreationCommande extends HttpServlet {
+    public static final String CONF_DAO_FACTORY      = "daofactory";
+    public static final String CHEMIN                = "chemin";
+    public static final String ATT_COMMANDE          = "commande";
+    public static final String ATT_FORM              = "form";
+    public static final String SESSION_CLIENTS       = "clients";
+    public static final String APPLICATION_CLIENTS   = "initClients";
+    public static final String SESSION_COMMANDES     = "commandes";
+    public static final String APPLICATION_COMMANDES = "initCommandes";
 
-    public static final String VUE_SUCCES       = "/WEB-INF/afficherClient.jsp";
-    public static final String VUE_FORM         = "/WEB-INF/creerClient.jsp";
+    public static final String VUE_SUCCES            = "/WEB-INF/afficherCommande.jsp";
+    public static final String VUE_FORM              = "/WEB-INF/creerCommande.jsp";
 
-    private ClientDao clientDao;
+    private ClientDao          clientDao;
+    private CommandeDao        commandeDao;
 
     public void init() throws ServletException {
-        /* Récupération d'une instance de notre DAO Utilisateur */
+        /* Récupération d'une instance de nos DAO Client et Commande */
         this.clientDao = ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getClientDao();
+        this.commandeDao = ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getCommandeDao();
     }
 
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
@@ -45,13 +52,13 @@ public class CreationClient extends HttpServlet {
         String chemin = this.getServletConfig().getInitParameter( CHEMIN );
 
         /* Préparation de l'objet formulaire */
-        CreationClientForm form = new CreationClientForm( clientDao );
+        CreationCommandeForm form = new CreationCommandeForm( clientDao, commandeDao );
 
         /* Traitement de la requête et récupération du bean en résultant */
-        Client client = form.creerClient( request, chemin );
+        Commande commande = form.creerCommande( request, chemin );
 
         /* Ajout du bean et de l'objet métier à l'objet requête */
-        request.setAttribute( ATT_CLIENT, client );
+        request.setAttribute( ATT_COMMANDE, commande );
         request.setAttribute( ATT_FORM, form );
 
         /* Si aucune erreur */
@@ -63,10 +70,21 @@ public class CreationClient extends HttpServlet {
             if ( clients == null ) {
                 clients = new HashMap<Long, Client>();
             }
-            /* Puis ajout du client courant dans la map */
-            clients.put( client.getId(), client );
+            /* Puis ajout du client de la commande courante dans la map */
+            clients.put( commande.getClient().getId(), commande.getClient() );
             /* Et enfin (ré)enregistrement de la map en session */
             session.setAttribute( SESSION_CLIENTS, clients );
+
+            /* Ensuite récupération de la map des commandes dans la session */
+            Map<Long, Commande> commandes = (HashMap<Long, Commande>) session.getAttribute( SESSION_COMMANDES );
+            /* Si aucune map n'existe, alors initialisation d'une nouvelle map */
+            if ( commandes == null ) {
+                commandes = new HashMap<Long, Commande>();
+            }
+            /* Puis ajout de la commande courante dans la map */
+            commandes.put( commande.getId(), commande );
+            /* Et enfin (ré)enregistrement de la map en session */
+            session.setAttribute( SESSION_COMMANDES, commandes );
 
             /* Affichage de la fiche récapitulative */
             this.getServletContext().getRequestDispatcher( VUE_SUCCES ).forward( request, response );

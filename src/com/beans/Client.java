@@ -1,14 +1,26 @@
 package com.beans;
 
-public class Client {
-    /* Propriétés du bean */
+import java.io.Serializable;
+
+public class Client implements Serializable {
+
+    private Long   id;
     private String nom;
     private String prenom;
     private String adresse;
     private String telephone;
     private String email;
+    private String image;
 
-    public void setNom(String nom) {
+    public void setId( Long id ) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setNom( String nom ) {
         this.nom = nom;
     }
 
@@ -16,7 +28,7 @@ public class Client {
         return nom;
     }
 
-    public void setPrenom(String prenom) {
+    public void setPrenom( String prenom ) {
         this.prenom = prenom;
     }
 
@@ -24,7 +36,7 @@ public class Client {
         return prenom;
     }
 
-    public void setAdresse(String adresse) {
+    public void setAdresse( String adresse ) {
         this.adresse = adresse;
     }
 
@@ -32,19 +44,27 @@ public class Client {
         return adresse;
     }
 
+    public void setTelephone( String telephone ) {
+        this.telephone = telephone;
+    }
+
     public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
-    public void setEmail(String email) {
+    public void setEmail( String email ) {
         this.email = email;
     }
 
     public String getEmail() {
         return email;
+    }
+
+    public void setImage( String image ) {
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
     }
 }
