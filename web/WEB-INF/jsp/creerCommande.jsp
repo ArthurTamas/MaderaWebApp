@@ -52,7 +52,7 @@
                     <legend>Informations commande</legend>
 
                     <label for="dateCommande">Date <span class="requis">*</span></label>
-                    <input type="text" id="v" name="dateCommande" value="<joda:format value="${ commande.date }" pattern="dd/MM/yyyy HH:mm:ss"></joda:format>" size="30" maxlength="30" disabled />
+                    <input type="text" id="dateCommande" name="dateCommande" value="<joda:format value="${ commande.date }" pattern="dd/MM/yyyy HH:mm:ss"></joda:format>" size="30" maxlength="30" disabled />
                     <span class="erreur">${form.erreurs['dateCommande']}</span>
                     <br />
 
@@ -95,7 +95,7 @@
                  Si vous ne souhaitez pas télécharger et ajouter jQuery à votre projet, vous pouvez utiliser la version fournie directement en ligne par Google :
                  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
             --%>
-        <script src="<c:url value="/inc/jquery.js"></script>"></script>
+        <script src="<c:url value="/inc/jquery-3.4.1.js"></script>"></script>
 
             <%-- Petite fonction jQuery permettant le remplacement de la première partie du formulaire par la liste déroulante, au clic sur le bouton radio. --%>
         <script>

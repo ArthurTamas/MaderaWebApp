@@ -46,5 +46,7 @@
     <orderEntry type="library" name="jstl-1.2" level="project" />
     <orderEntry type="library" name="mysql-connector-java-8.0.19" level="project" />
     <orderEntry type="library" name="mime-util-2.1.3" level="project" />
+    <orderEntry type="library" name="slf4j-api-1.6.6" level="project" />
+    <orderEntry type="library" name="joda-time-jsptags-1.1.1" level="project" />
   </component>
 </module>
