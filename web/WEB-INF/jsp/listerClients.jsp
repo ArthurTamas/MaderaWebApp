@@ -43,13 +43,13 @@
                                 <td><c:out value="${ mapClients.value.adresse }"></c:out></td>
                                 <td><c:out value="${ mapClients.value.telephone }"></c:out></td>
                                 <td><c:out value="${ mapClients.value.email }"></c:out></td>
-                                <td>
-                                        <%-- On ne construit et affiche un lien vers l'image que si elle existe. --%>
-                                    <c:if test="${ !empty mapClients.value.image }">
+                                        <!-- <%--<td>
+                                        On ne construit et affiche un lien vers l'image que si elle existe.
+                                   <c:if test="${ !empty mapClients.value.image }">
                                         <c:set var="image"><c:out value="${ mapClients.value.image }"></c:out></c:set>
                                         <a href="<c:url value="/images/${ image }"></a>">Voir</a>
                                     </c:if>
-                                </td>
+                                </td>--%>-->
                                     <%-- Lien vers la servlet de suppression, avec passage du nom du client - c'est-à-dire la clé de la Map - en paramètre grâce à la balise <c:param></c:param>. --%>
                                 <td class="action">
                                     <a href="<c:url value="/suppressionClient"><c:param name="idClient" value="${ mapClients.key }" ></c:param></c:url>">

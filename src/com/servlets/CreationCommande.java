@@ -27,8 +27,8 @@ public class CreationCommande extends HttpServlet {
     public static final String SESSION_COMMANDES     = "commandes";
     public static final String APPLICATION_COMMANDES = "initCommandes";
 
-    public static final String VUE_SUCCES            = "/WEB-INF/afficherCommande.jsp";
-    public static final String VUE_FORM              = "/WEB-INF/creerCommande.jsp";
+    public static final String VUE_SUCCES            = "/WEB-INF/jsp/afficherCommande.jsp";
+    public static final String VUE_FORM              = "/WEB-INF/jsp/creerCommande.jsp";
 
     private ClientDao          clientDao;
     private CommandeDao        commandeDao;
