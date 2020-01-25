@@ -19,7 +19,7 @@ public class ClientDaoImpl implements ClientDao {
     private static final String SQL_INSERT        = "INSERT INTO Client (nom, prenom, adresse, telephone, email, image) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String SQL_DELETE_PAR_ID = "DELETE FROM Client WHERE id = ?";
 
-    private DAOFactory          daoFactory;
+    private DAOFactory daoFactory;
 
     ClientDaoImpl(DAOFactory daoFactory ) {
         this.daoFactory = daoFactory;
@@ -112,7 +112,7 @@ public class ClientDaoImpl implements ClientDao {
      * données, correspondant à la requête SQL donnée prenant en paramètres les
      * objets passés en argument.
      */
-    private Client trouver( String sql, Object... objets ) throws DAOException {
+    private Client trouver( String sql, Object objets ) throws DAOException {
         Connection connexion = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;

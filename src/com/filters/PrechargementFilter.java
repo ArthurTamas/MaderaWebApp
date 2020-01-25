@@ -26,7 +26,7 @@ public class PrechargementFilter implements Filter {
     public static final String ATT_SESSION_COMMANDES = "commandes";
 
     private ClientDao clientDao;
-    private CommandeDao        commandeDao;
+    private CommandeDao commandeDao;
 
     public void init( FilterConfig config ) throws ServletException {
         /* Récupération d'une instance de nos DAO Client et Commande */

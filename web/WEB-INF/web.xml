@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app>
+    <welcome-file-list>
+        <welcome-file>connexion.jsp</welcome-file>
+    </welcome-file-list>
+
+    <session-config>
+        <session-timeout>3600</session-timeout>
+    </session-config>
+
     <jsp-config>
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>
@@ -92,8 +100,23 @@
             <param-value>/fichiers/images/</param-value>
         </init-param>
     </servlet>
+    <servlet>
+        <servlet-name>Connexion</servlet-name>
+        <servlet-class>com.servlets.Connexion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Deconnexion</servlet-name>
+        <servlet-class>com.servlets.Deconnexion</servlet-class>
+    </servlet>
 
-
+    <servlet-mapping>
+        <servlet-name>Deconnexion</servlet-name>
+        <url-pattern>/deconnexion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Connexion</servlet-name>
+        <url-pattern>/connexion</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CreationClient</servlet-name>
         <url-pattern>/creationClient</url-pattern>
