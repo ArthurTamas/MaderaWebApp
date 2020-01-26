@@ -16,10 +16,10 @@ import com.beans.Commande;
 
 public class CommandeDaoImpl implements CommandeDao {
 
-    private static final String SQL_SELECT        = "SELECT id, id_client, date, montant, mode_paiement, statut_paiement, mode_livraison, statut_livraison FROM Commande ORDER BY id";
-    private static final String SQL_SELECT_PAR_ID = "SELECT id, id_client, date, montant, mode_paiement, statut_paiement, mode_livraison, statut_livraison FROM Commande WHERE id = ?";
-    private static final String SQL_INSERT        = "INSERT INTO Commande (id_client, date, montant, mode_paiement, statut_paiement, mode_livraison, statut_livraison) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    private static final String SQL_DELETE_PAR_ID = "DELETE FROM Commande WHERE id = ?";
+    private static final String SQL_SELECT        = "SELECT id_commande, id_client, date_creation, montant, mode_paiement, statut_paiement, mode_livraison, statut_livraison FROM Commande ORDER BY id_commande";
+    private static final String SQL_SELECT_PAR_ID = "SELECT id_commande, id_client, date_creation, montant, mode_paiement, statut_paiement, mode_livraison, statut_livraison FROM Commande WHERE id_commande = ?";
+    private static final String SQL_INSERT        = "INSERT INTO Commande (id_client, date_creation, montant, mode_paiement, statut_paiement, mode_livraison, statut_livraison) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_DELETE_PAR_ID = "DELETE FROM Commande WHERE id = id_commande";
 
     private DAOFactory daoFactory;
 
@@ -150,7 +150,7 @@ public class CommandeDaoImpl implements CommandeDao {
      */
     private Commande map( ResultSet resultSet ) throws SQLException {
         Commande commande = new Commande();
-        commande.setId( resultSet.getLong( "id" ) );
+        commande.setId( resultSet.getLong( "id_commande" ) );
 
         /*
          * Petit changement ici : pour récupérer un client, il nous faut faire
@@ -159,8 +159,7 @@ public class CommandeDaoImpl implements CommandeDao {
          */
         ClientDao clientDao = daoFactory.getClientDao();
         commande.setClient( clientDao.trouver( resultSet.getLong( "id_client" ) ) );
-
-        commande.setDate( new DateTime( resultSet.getTimestamp( "date" ) ) );
+        commande.setDate( new DateTime( resultSet.getTimestamp( "date_creation" ) ) );
         commande.setMontant( resultSet.getDouble( "montant" ) );
         commande.setModePaiement( resultSet.getString( "mode_paiement" ) );
         commande.setStatutPaiement( resultSet.getString( "statut_paiement" ) );

@@ -32,7 +32,7 @@
 <span class="erreur">${form.erreurs['emailClient']}</span>
 <br />
 
-<label for="imageClient">Image</label>
-<input type="file" id="imageClient" name="imageClient" />
-<span class="erreur">${form.erreurs['imageClient']}</span>
+<label for="passwordClient">Mot de passe</label>
+<input type="password" id="passwordClient" name="passwordClient" value="<c:out value="${client.password}"/>" size="30" maxlength="60" />
+<span class="erreur">${form.erreurs['passwordClient']}</span>
 <br />

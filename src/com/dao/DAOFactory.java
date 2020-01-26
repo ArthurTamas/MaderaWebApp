@@ -86,4 +86,8 @@ public class DAOFactory {
     public CommandeDao getCommandeDao() {
         return new CommandeDaoImpl(this);
     }
+
+    public ProjetDaoImpl getProjetDao() {
+        return new ProjetDaoImpl(this);
+    }
 }

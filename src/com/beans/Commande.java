@@ -6,7 +6,7 @@ import org.joda.time.DateTime;
 
 public class Commande implements Serializable {
     private Long     id;
-    private Client   client;
+    private Client client;
     private DateTime date;
     private Double   montant;
     private String   modePaiement;

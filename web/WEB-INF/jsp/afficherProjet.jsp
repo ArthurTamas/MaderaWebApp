@@ -1,6 +1,13 @@
 <%--
   Created by IntelliJ IDEA.
   User: arthu
+  Date: 26/01/2020
+  Time: 11:31
+  To change this template use File | Settings | File Templates.
+--%>
+<%--
+  Created by IntelliJ IDEA.
+  User: arthu
   Date: 23/01/2020
   Time: 22:08
   To change this template use File | Settings | File Templates.
@@ -25,7 +32,7 @@
             <p>Numéro de téléphone : <c:out value="${ commande.client.telephone }"></c:out></p>
             <p>Email : <c:out value="${ commande.client.email }"></c:out></p>
             <p>Commande</p>
-            <p>Date  : <joda:format value="${ commande.date }" pattern="dd/MM/yyyy"></joda:format></p>
+            <p>Date  : <joda:format value="${ commande.date }" pattern="dd/MM/yyyy HH:mm:ss"></joda:format></p>
             <p>Montant  : <c:out value="${ commande.montant }"></c:out></p>
             <p>Mode de paiement  : <c:out value="${ commande.modePaiement }"></c:out></p>
             <p>Statut du paiement  : <c:out value="${ commande.statutPaiement }"></c:out></p>

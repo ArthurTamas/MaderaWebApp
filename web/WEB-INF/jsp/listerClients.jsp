@@ -30,8 +30,7 @@
                             <th>Adresse</th>
                             <th>Téléphone</th>
                             <th>Email</th>
-                            <th>Image</th>
-                            <th class="action">Action</th>
+                            <th class="action">Supprimer</th>
                         </tr>
                             <%-- Parcours de la Map des clients en session, et utilisation de l'objet varStatus. --%>
                         <c:forEach items="${ sessionScope.clients }" var="mapClients" varStatus="boucle">

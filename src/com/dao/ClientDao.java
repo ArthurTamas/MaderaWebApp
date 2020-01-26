@@ -7,7 +7,7 @@ import com.beans.Client;
 public interface ClientDao {
     void creer( Client client ) throws DAOException;
 
-    Client trouver( long id ) throws DAOException;
+    Client trouver(long id ) throws DAOException;
 
     List<Client> lister() throws DAOException;
 

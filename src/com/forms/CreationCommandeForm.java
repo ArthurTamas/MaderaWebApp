@@ -6,10 +6,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.beans.Client;
 import com.dao.ClientDao;
 import org.joda.time.DateTime;
 
-import com.beans.Client;
 import com.beans.Commande;
 import com.dao.CommandeDao;
 import com.dao.DAOException;
@@ -128,7 +128,7 @@ public final class CreationCommandeForm {
         return commande;
     }
 
-    private void traiterClient( Client client, Commande commande ) {
+    private void traiterClient(Client client, Commande commande ) {
         if ( client == null ) {
             setErreur( CHAMP_CHOIX_CLIENT, "Client inconnu, merci d'utiliser le formulaire prévu à cet effet." );
         }

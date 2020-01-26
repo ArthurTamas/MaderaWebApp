@@ -14,10 +14,10 @@ import com.beans.Client;
 
 public class ClientDaoImpl implements ClientDao {
 
-    private static final String SQL_SELECT        = "SELECT id, nom, prenom, adresse, telephone, email, image FROM Client ORDER BY id";
-    private static final String SQL_SELECT_PAR_ID = "SELECT id, nom, prenom, adresse, telephone, email, image FROM Client WHERE id = ?";
-    private static final String SQL_INSERT        = "INSERT INTO Client (nom, prenom, adresse, telephone, email, image) VALUES (?, ?, ?, ?, ?, ?)";
-    private static final String SQL_DELETE_PAR_ID = "DELETE FROM Client WHERE id = ?";
+    private static final String SQL_SELECT        = "SELECT id_utilisateur, nom, prenom, adresse, telephone, email FROM Utilisateur WHERE user_group = 'client' ORDER BY id_utilisateur";
+    private static final String SQL_SELECT_PAR_ID = "SELECT id_utilisateur, nom, prenom, adresse, telephone, email FROM Utilisateur WHERE id_utilisateur = ?";
+    private static final String SQL_INSERT        = "INSERT INTO Utilisateur (user_group, nom, prenom, adresse, telephone, email, password) VALUES ('client', ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_DELETE_PAR_ID = "DELETE FROM Utilisateur WHERE id_utilisateur = ?";
 
     private DAOFactory daoFactory;
 
@@ -27,7 +27,7 @@ public class ClientDaoImpl implements ClientDao {
 
     /* Implémentation de la méthode définie dans l'interface ClientDao */
     @Override
-    public Client trouver( long id ) throws DAOException {
+    public Client trouver(long id ) throws DAOException {
         return trouver( SQL_SELECT_PAR_ID, id );
     }
 
@@ -43,7 +43,7 @@ public class ClientDaoImpl implements ClientDao {
             preparedStatement = initialisationRequetePreparee( connexion, SQL_INSERT, true,
                     client.getNom(), client.getPrenom(),
                     client.getAdresse(), client.getTelephone(),
-                    client.getEmail(), client.getImage() );
+                    client.getEmail(), client.getPassword());
             int statut = preparedStatement.executeUpdate();
             if ( statut == 0 ) {
                 throw new DAOException( "Échec de la création du client, aucune ligne ajoutée dans la table." );
@@ -112,7 +112,7 @@ public class ClientDaoImpl implements ClientDao {
      * données, correspondant à la requête SQL donnée prenant en paramètres les
      * objets passés en argument.
      */
-    private Client trouver( String sql, Object objets ) throws DAOException {
+    private Client trouver(String sql, Object objets ) throws DAOException {
         Connection connexion = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -145,15 +145,16 @@ public class ClientDaoImpl implements ClientDao {
      * mapping) entre une ligne issue de la table des clients (un ResultSet) et
      * un bean Client.
      */
-    private static Client map( ResultSet resultSet ) throws SQLException {
+    private static Client map(ResultSet resultSet ) throws SQLException {
         Client client = new Client();
-        client.setId( resultSet.getLong( "id" ) );
+        client.setId( resultSet.getLong( "id_utilisateur" ) );
         client.setNom( resultSet.getString( "nom" ) );
         client.setPrenom( resultSet.getString( "prenom" ) );
         client.setAdresse( resultSet.getString( "adresse" ) );
         client.setTelephone( resultSet.getString( "telephone" ) );
         client.setEmail( resultSet.getString( "email" ) );
-        client.setImage( resultSet.getString( "image" ) );
+        //client.setPassword( resultSet.getString( "password" ) );
+        //client.setImage( resultSet.getString( "image" ) );
         return client;
     }
 

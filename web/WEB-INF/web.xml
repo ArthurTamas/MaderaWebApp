@@ -51,16 +51,6 @@
     <servlet>
         <servlet-name>CreationClient</servlet-name>
         <servlet-class>com.servlets.CreationClient</servlet-class>
-        <init-param>
-            <param-name>chemin</param-name>
-            <param-value>/fichiers/images/</param-value>
-        </init-param>
-        <multipart-config>
-            <location>c:/fichiers/images</location>
-            <max-file-size>2097152</max-file-size> <!-- 2 Mo -->
-            <max-request-size>10485760</max-request-size> <!-- 5 x 2Mo -->
-            <file-size-threshold>1048576</file-size-threshold> <!-- 1 Mo -->
-        </multipart-config>
     </servlet>
     <servlet>
         <servlet-name>ListeClients</servlet-name>
@@ -73,16 +63,6 @@
     <servlet>
         <servlet-name>CreationCommande</servlet-name>
         <servlet-class>com.servlets.CreationCommande</servlet-class>
-        <init-param>
-            <param-name>chemin</param-name>
-            <param-value>/fichiers/images/</param-value>
-        </init-param>
-        <multipart-config>
-            <location>c:/fichiers/images</location>
-            <max-file-size>2097152</max-file-size> <!-- 2 Mo -->
-            <max-request-size>10485760</max-request-size> <!-- 5 x 2Mo -->
-            <file-size-threshold>1048576</file-size-threshold> <!-- 1 Mo -->
-        </multipart-config>
     </servlet>
     <servlet>
         <servlet-name>ListeCommandes</servlet-name>
@@ -107,6 +87,10 @@
     <servlet>
         <servlet-name>Deconnexion</servlet-name>
         <servlet-class>com.servlets.Deconnexion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreationProjet</servlet-name>
+        <servlet-class>com.servlets.CreationProjet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -142,7 +126,7 @@
         <url-pattern>/suppressionCommande</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Image</servlet-name>
-        <url-pattern>/images/*</url-pattern>
+        <servlet-name>CreationProjet</servlet-name>
+        <url-pattern>/creationProjet</url-pattern>
     </servlet-mapping>
 </web-app>
