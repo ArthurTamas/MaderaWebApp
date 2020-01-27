@@ -7,6 +7,7 @@ public class Gamme implements Serializable {
     private Long   id;
     private String libelle;
     private List<Module> modules;
+    private String code;
 
     public Long getId() {
         return id;
@@ -30,5 +31,13 @@ public class Gamme implements Serializable {
 
     public void setModules(List<Module> modules) {
         this.modules = modules;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

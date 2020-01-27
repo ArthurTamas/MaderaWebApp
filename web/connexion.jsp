@@ -11,7 +11,7 @@
     <head>
         <meta charset="utf-8" />
         <title>Connexion</title>
-        <link type="text/css" rel="stylesheet" href="form.css" />
+        <link type="text/css" rel="stylesheet" href="inc/style.css" />
     </head>
     <body>
         <form method="post" action="connexion">
@@ -32,7 +32,7 @@
                 <input type="submit" value="Connexion" class="sansLabel" />
                 <br />
 
-                <p class="${empty form.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
+                <p class="${empty form.erreurs && utilsateur != null ? 'succes' : 'erreur'}">${form.resultat}</p>
             </fieldset>
         </form>
     </body>

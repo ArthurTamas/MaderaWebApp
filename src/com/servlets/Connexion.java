@@ -15,11 +15,16 @@ public class Connexion extends HttpServlet {
     public static final String ATT_USER         = "utilisateur";
     public static final String ATT_FORM         = "form";
     public static final String ATT_SESSION_USER = "sessionUtilisateur";
-    public static final String VUE              = "/WEB-INF/jsp/creerClient.jsp";
+    public static final String VUESUCCESSLOGIN              = "/WEB-INF/jsp/creerClient.jsp";
+    public static final String VUEFAILLOGIN              = "/connexion.jsp";
+    public static final String VUELOGIN              = "/connexion.jsp";
+    public static String VUE;
+
+
 
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         /* Affichage de la page de connexion */
-        this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+        this.getServletContext().getRequestDispatcher(VUELOGIN).forward( request, response );
     }
 
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
@@ -36,10 +41,13 @@ public class Connexion extends HttpServlet {
          * Si aucune erreur de validation n'a eu lieu, alors ajout du bean
          * Utilisateur à la session, sinon suppression du bean de la session.
          */
-        if ( form.getErreurs().isEmpty() ) {
+
+        if ( form.getErreurs().isEmpty() && utilisateur != null) {
             session.setAttribute( ATT_SESSION_USER, utilisateur );
+            VUE = VUESUCCESSLOGIN;
         } else {
             session.setAttribute( ATT_SESSION_USER, null );
+            VUE = VUEFAILLOGIN;
         }
 
         /* Stockage du formulaire et du bean dans l'objet request */

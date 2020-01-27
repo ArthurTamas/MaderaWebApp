@@ -1,9 +1,11 @@
 package com.dao;
 
+import com.beans.Gamme;
 import com.beans.Projet;
 import org.joda.time.DateTime;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.dao.DAOUtilitaire.fermeturesSilencieuses;
@@ -124,7 +126,25 @@ public class ProjetDaoImpl implements ProjetDao {
 
     @Override
     public List<Projet> lister() throws DAOException {
-        return null;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<Projet> projets = new ArrayList<Projet>();
+
+        try {
+            connection = daoFactory.getConnection();
+            preparedStatement = connection.prepareStatement( SQL_SELECT );
+            resultSet = preparedStatement.executeQuery();
+            while ( resultSet.next() ) {
+                projets.add( map( resultSet ) );
+            }
+        } catch ( SQLException e ) {
+            throw new DAOException( e );
+        } finally {
+            fermeturesSilencieuses( resultSet, preparedStatement, connection );
+        }
+
+        return projets;
     }
 
     @Override

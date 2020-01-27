@@ -90,4 +90,12 @@ public class DAOFactory {
     public ProjetDaoImpl getProjetDao() {
         return new ProjetDaoImpl(this);
     }
+
+    public ModuleDaoImpl getModuleDao() {
+        return new ModuleDaoImpl(this);
+    }
+
+    public GammeDaoImpl getGammeDao() {
+        return new GammeDaoImpl(this);
+    }
 }
