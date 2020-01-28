@@ -12,12 +12,12 @@
         <p><a href="<c:url value="/creationProjet"/>">Créer un nouveau projet</a></p>
         <p><a href="<c:url value="/listeClients"/>">Voir les clients existants</a></p>
     </c:if>
-    <c:if test="${ requestScope.userGroup == 'client'}">
+    <c:if test="${ sessionScope.userGroup == 'client'}">
         <p><a href="<c:url value="/notImplement.jsp"/>">Mes informations</a></p>
         <p><a href="<c:url value="/notImplement.jsp"/>">Liste de mes projets</a></p>
         <p><a href="<c:url value="/notImplement.jsp"/>">Contact</a></p>
     </c:if>
-    <p><a id="deconnexion" href="<c:url value="/notImplement.jsp"/>">Déconnexion</a></p>
+    <p><a id="deconnexion" href="<c:url value="/deconnexion"/>">Déconnexion</a></p>
 
 </div>
 
