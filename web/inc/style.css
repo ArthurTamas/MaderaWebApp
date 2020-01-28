@@ -1,15 +1,34 @@
 /* Général ---------------------------------------------------------
 ---------------------------- */
-body, p, legend, label, input, select{
+body, p, legend, label, input, select {
     font: normal 8pt verdana, helvetica, sans-serif;
 }
+
 select {
     margin: 3px 3px 0px 0px;
     border: 1px #999 solid;
 }
-h1{
+
+fieldset {
     font: normal 8pt verdana, helvetica, sans-serif;
     font-weight: bold;
+}
+
+h1#acceuil {
+    padding: 10px;
+    margin: 50px;
+}
+
+h1#composMaison {
+    font: normal 8pt verdana, helvetica, sans-serif;
+    font-weight: bold;
+}
+a{
+    color: #004bc8;
+}
+
+a#deconnexion{
+    color: #c00003;
 }
 
 /* Forms -----------------------------------------------------------
@@ -24,11 +43,13 @@ legend {
     font-weight: bold;
     color: #0568CD;
 }
+
 form label {
     float: left;
     width: 200px;
     margin: 3px 0px 0px 0px;
 }
+
 form input {
     margin: 3px 3px 0px 0px;
     border: 1px #999 solid;
@@ -37,17 +58,21 @@ form input {
 form input.sansLabel {
     margin-left: 200px;
 }
+
 /* Styles et couleurs ----------------------------------------------
 ---------------------------- */
 .requis {
     color: #c00;
 }
+
 .erreur {
     color: #900;
 }
+
 .succes {
     color: #090;
 }
+
 .info {
     font-style: italic;
     color: #E8A22B;
@@ -55,43 +80,53 @@ form input.sansLabel {
 
 /* Blocs constituants --------------------------------------------
 ------------------------------ */
-div#menu{
+div#menu {
     border: 1px solid #0568CD;
     padding: 10px;
     margin: 10px;
 }
-div#corps{
+
+div#corps {
     margin: 10px;
 }
+
 form .erreur {
     color: #900;
 }
+
 form .succes {
     color: #090;
 }
-    /* Tableaux -------------------------------------------------------------------------------------*/
-table{
+
+/* Tableaux -------------------------------------------------------------------------------------*/
+table {
     border-collapse: collapse;
 }
-tr.pair{
+
+tr.pair {
     background-color: #efefef;
 }
-tr.impair{
+
+tr.impair {
     background-color: #fff;
 }
-th{
+
+th {
     color: #0568CD;
     border: 1px solid #0568CD;
     padding: 5px;
 }
-th.action{
+
+th.action {
     border: 1px solid #900;
     color: #900;
 }
-td{
+
+td {
     border: 1px solid #ddd;
     padding: 5px;
 }
-td.action{
+
+td.action {
     text-align: center;
 }

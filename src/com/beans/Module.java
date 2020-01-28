@@ -9,6 +9,7 @@ public class Module implements Serializable {
     private String libelle;
     private String prix_ht;
     private List<Composant> composant;
+    private Gamme gamme;
 
     public Long getId() {
         return id;
@@ -48,5 +49,13 @@ public class Module implements Serializable {
 
     public void setComposant(List<Composant> composant) {
         this.composant = composant;
+    }
+
+    public Gamme getGamme() {
+        return gamme;
+    }
+
+    public void setGamme(Gamme gamme) {
+        this.gamme = gamme;
     }
 }

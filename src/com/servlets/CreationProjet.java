@@ -11,13 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.beans.Client;
-import com.beans.Commande;
 import com.beans.Projet;
 import com.dao.ClientDao;
-import com.dao.CommandeDao;
 import com.dao.DAOFactory;
 import com.dao.ProjetDao;
-import com.forms.CreationCommandeForm;
 import com.forms.CreationProjetForm;
 
 public class CreationProjet extends HttpServlet {

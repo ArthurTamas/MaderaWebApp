@@ -103,7 +103,7 @@
                            value="<c:out value="${projet.adresse}"></c:out>" size="20" maxlength="200"/>
                     <span class="erreur">${form.erreurs['adresseProjet']}</span>
                     <br/>
-                    <h1>Composition de la maison</h1>
+                    <h1 id="composMaison">Composition de la maison</h1>
 
                     <c:if test="${ !empty sessionScope.gammes }">
                         <label for="listGammes">Gamme de maison <span class="requis">*</span></label>
@@ -123,7 +123,7 @@
                             <option value="">Choisissez une module...</option>
                                 <%-- Boucle sur la map des modules --%>
                             <c:forEach items="${ sessionScope.modules }" var="mapModules">
-                                <option value="${ mapModules.key }">${ mapModules.value.libelle }</option>
+                                    <option value="${ mapModules.key }">${ mapModules.value.libelle }</option>
                             </c:forEach>
                         </select>
                         <br/>

@@ -63,12 +63,15 @@ public class ModuleDaoImpl implements ModuleDao{
 
     }
 
-    private static Module map(ResultSet resultSet ) throws SQLException {
+    private Module map(ResultSet resultSet ) throws SQLException {
         Module module = new Module();
+
         module.setId( resultSet.getLong( "id_module" ) );
         module.setLibelle( resultSet.getString( "libelle_module" ) );
         module.setCode( resultSet.getString( "code_module" ) );
         module.setPrix_ht( resultSet.getString( "prix_ht" ) );
+        GammeDao gammeDao= daoFactory.getGammeDao();
+        module.setGamme( gammeDao.trouver( resultSet.getLong( "id_gamme" ) ) );
         return module;
     }
 

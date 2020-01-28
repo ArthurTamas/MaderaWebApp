@@ -11,9 +11,9 @@ import static com.dao.DAOUtilitaire.initialisationRequetePreparee;
 
 public class UtilisateurDaoImpl implements UtilisateurDao {
 
-    private static final String SQL_SELECT = "SELECT id_utilisateur, nom, prenom, adresse, telephone, email, image FROM Utilisateur ORDER BY id_utilisateur";
-    private static final String SQL_SELECT_PAR_ID = "SELECT id_utilisateur, nom, prenom, adresse, telephone, email, image FROM Utilisateur WHERE id_utilisateur = ?";
-    private static final String SQL_SELECT_PAR_EMAIL_AND_MDP = "SELECT id_utilisateur, nom, email FROM Utilisateur WHERE email = ? AND password = ?";
+    private static final String SQL_SELECT = "Select ID_UTILISATEUR, NOM,  PRENOM,  LOGIN,  ID_ADRESSE,  USER_GROUP,  TELEPHONE,  ADRESSE,  PASSWORD,  EMAIL FROM Utilisateur ORDER BY id_utilisateur";
+    private static final String SQL_SELECT_PAR_ID = "SELECT ID_UTILISATEUR, NOM,  PRENOM,  LOGIN,  ID_ADRESSE,  USER_GROUP,  TELEPHONE,  ADRESSE,  PASSWORD,  EMAIL FROM Utilisateur WHERE id_utilisateur = ?";
+    private static final String SQL_SELECT_PAR_EMAIL_AND_MDP = "SELECT ID_UTILISATEUR, NOM,  PRENOM,  LOGIN,  ID_ADRESSE,  USER_GROUP,  TELEPHONE,  ADRESSE,  PASSWORD,  EMAIL FROM Utilisateur WHERE email = ? AND password = ?";
 
     private static final String SQL_INSERT = "INSERT INTO Utilisateur (nom, prenom, adresse, telephone, email, image) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String SQL_DELETE_PAR_ID = "DELETE FROM Utilisateur WHERE id_utilisateur = ?";
@@ -85,10 +85,10 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
         utilisateur.setId(resultSet.getLong("id_utilisateur"));
         utilisateur.setNom(resultSet.getString("nom"));
         utilisateur.setEmail(resultSet.getString("email"));
-        //utilisateur.setPrenom( resultSet.getString( "prenom" ) );
+        utilisateur.setPrenom( resultSet.getString( "prenom" ) );
         //utilisateur.setAdresse( resultSet.getString( "adresse" ) );
-        //utilisateur.setTelephone( resultSet.getString( "telephone" ) );
-        //utilisateur.setImage( resultSet.getString( "image" ) );
+        utilisateur.setTelephone( resultSet.getString( "telephone" ) );
+        utilisateur.setUser_group( resultSet.getString( "user_group" ) );
 
         return utilisateur;
     }

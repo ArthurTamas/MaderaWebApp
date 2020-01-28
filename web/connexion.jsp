@@ -17,7 +17,6 @@
         <form method="post" action="connexion">
             <fieldset>
                 <legend>Connexion</legend>
-                <p>Vous pouvez vous connecter via ce formulaire.</p>
 
                 <label for="email">Adresse email <span class="requis">*</span></label>
                 <input type="email" id="email" name="email" value="<c:out value="${utilisateur.email}"/>" size="20" maxlength="60" />
