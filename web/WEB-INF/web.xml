@@ -92,6 +92,10 @@
         <servlet-name>CreationProjet</servlet-name>
         <servlet-class>com.servlets.CreationProjet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListeProjets</servlet-name>
+        <servlet-class>com.servlets.ListeProjets</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>Deconnexion</servlet-name>
@@ -128,5 +132,9 @@
     <servlet-mapping>
         <servlet-name>CreationProjet</servlet-name>
         <url-pattern>/creationProjet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListeProjets</servlet-name>
+        <url-pattern>/listeProjets</url-pattern>
     </servlet-mapping>
 </web-app>

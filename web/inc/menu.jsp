@@ -14,7 +14,7 @@
     </c:if>
     <c:if test="${ sessionScope.userGroup == 'client'}">
         <p><a href="<c:url value="/notImplement.jsp"/>">Mes informations</a></p>
-        <p><a href="<c:url value="/notImplement.jsp"/>">Liste de mes projets</a></p>
+        <p><a href="<c:url value="/listeProjets"/>">Liste de mes projets</a></p>
         <p><a href="<c:url value="/notImplement.jsp"/>">Contact</a></p>
     </c:if>
     <p><a id="deconnexion" href="<c:url value="/deconnexion"/>">Déconnexion</a></p>
