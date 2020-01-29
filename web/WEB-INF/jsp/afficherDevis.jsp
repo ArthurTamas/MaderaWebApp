@@ -1,15 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: arthu
-  Date: 26/01/2020
-  Time: 11:31
-  To change this template use File | Settings | File Templates.
---%>
-<%--
-  Created by IntelliJ IDEA.
-  User: arthu
-  Date: 23/01/2020
-  Time: 22:08
+  Date: 29/01/2020
+  Time: 22:25
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page pageEncoding="UTF-8" %>

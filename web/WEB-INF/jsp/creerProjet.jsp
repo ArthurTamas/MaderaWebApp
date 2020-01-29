@@ -114,6 +114,7 @@
                                 <option value="${ mapGammes.key }">${ mapGammes.value.libelle }</option>
                             </c:forEach>
                         </select>
+                        <span class="erreur">${form.erreurs['listeGammes']}</span>
                         <br/>
                     </c:if>
 
@@ -126,6 +127,7 @@
                                     <option value="${ mapModules.key }">${ mapModules.value.libelle }</option>
                             </c:forEach>
                         </select>
+                        <span class="erreur">${form.erreurs['listeModules']}</span>
                         <br/>
                     </c:if>
                     <p class="info">${ form.resultat }</p>

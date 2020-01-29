@@ -12,4 +12,26 @@ public class Client extends Utilisateur implements Serializable {
     public void setNumero_client(String numero_client) {
         this.numero_client = numero_client;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

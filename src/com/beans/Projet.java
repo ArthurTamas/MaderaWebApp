@@ -18,6 +18,8 @@ public class Projet implements Serializable {
     private Commercial commercial;
     private Client client;
     private Maison maison;
+    private Gamme gamme;
+    private Module module;
 
     public int getId() {
         return id;
@@ -104,5 +106,21 @@ public class Projet implements Serializable {
 
     public void setMaison(Maison maison) {
         this.maison = maison;
+    }
+
+    public Gamme getGamme() {
+        return gamme;
+    }
+
+    public void setGamme(Gamme gamme) {
+        this.gamme = gamme;
+    }
+
+    public Module getModule() {
+        return module;
+    }
+
+    public void setModule(Module module) {
+        this.module = module;
     }
 }

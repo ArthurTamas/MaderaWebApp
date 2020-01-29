@@ -15,6 +15,8 @@ public class ListeProjets extends HttpServlet {
 
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         /* À la réception d'une requête GET, affichage de la liste des projets */
-        this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+        this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
     }
+
+
 }
