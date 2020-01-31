@@ -34,6 +34,7 @@
                     <th>Adresse</th>
                     <th>Nom du commercial</th>
                     <th class="action">Supprimer</th>
+                    <th class="action">Détails</th>
                 </tr>
                     <%-- Parcours de la Map des projets en session, et utilisation de l'objet varStatus. --%>
                 <c:forEach items="${ sessionScope.projets }" var="mapProjets" varStatus="boucle">
@@ -44,16 +45,23 @@
                                 <%-- Affichage des propriétés du bean Projet, qui est stocké en tant que valeur de l'entrée courante de la map --%>
                             <td><c:out value="${ mapProjets.value.numero_projet }"></c:out></td>
                             <td><c:out value="${ mapProjets.value.avancement }"></c:out></td>
-                            <td><c:out value="${ mapProjets.value.date_creation }"></c:out></td>
+                            <td><joda:format value="${ mapProjets.value.date_creation }" pattern="dd/MM/yyyy HH:mm:ss"></joda:format></td>
                             <td><c:out value="${ mapProjets.value.modalite_paiement }"></c:out></td>
-                            <td><c:out value="${ mapProjets.value.date_debut_prestation }"></c:out></td>
-                            <td><c:out value="${ mapProjets.value.date_fin_prestation }"></c:out></td>
+                            <td><joda:format value="${ mapProjets.value.date_debut_prestation }" pattern="dd/MM/yyyy HH:mm:ss"></joda:format></td>
+                            <td><joda:format value="${ mapProjets.value.date_fin_prestation }" pattern="dd/MM/yyyy HH:mm:ss"></joda:format></td>
                             <td><c:out value="${ mapProjets.value.adresse }"></c:out></td>
                             <td><c:out value="${ mapProjets.value.commercial.nom }"></c:out></td>
                                 <%-- Lien vers la servlet de suppression, avec passage du nom du projet - c'est-à-dire la clé de la Map - en paramètre grâce à la balise <c:param></c:param>. --%>
                             <td class="action">
                                 <a href="<c:url value="/suppressionProjet"><c:param name="idProjet" value="${ mapProjets.key }" ></c:param></c:url>">
                                     <img src="<c:url value="/inc/supprimer.png"></c:url>" alt="Supprimer" />
+                                </a>
+                            </td>
+                                <%-- Lien vers la servlet des détails, avec passage du nom du projet - c'est-à-dire la clé de la Map - en paramètre grâce à la balise <c:param></c:param>. --%>
+                            <td class="action">
+
+                                <a href="<c:url value="/detailsProjet"><c:param name="idProjet" value="${ mapProjets.key }" ></c:param></c:url>">
+                                    <img src="<c:url value="/inc/supprimer.png"></c:url>" alt="Details" />
                                 </a>
                             </td>
                         </tr>
