@@ -15,11 +15,12 @@ public class Projet implements Serializable {
     private DateTime date_debut_prestation;
     private DateTime date_fin_prestation;
     private String adresse;
-    private Commercial commercial;
+    private Utilisateur commercial;
     private Client client;
     private Maison maison;
     private Gamme gamme;
     private Module module;
+    private Devis devis;
 
     public int getId() {
         return id;
@@ -84,11 +85,11 @@ public class Projet implements Serializable {
         this.adresse = adresse;
     }
 
-    public Commercial getCommercial() {
+    public Utilisateur getCommercial() {
         return commercial;
     }
 
-    public void setCommercial(Commercial commercial) {
+    public void setCommercial(Utilisateur commercial) {
         this.commercial = commercial;
     }
 
@@ -122,5 +123,13 @@ public class Projet implements Serializable {
 
     public void setModule(Module module) {
         this.module = module;
+    }
+
+    public Devis getDevis() {
+        return devis;
+    }
+
+    public void setDevis(Devis devis) {
+        this.devis = devis;
     }
 }

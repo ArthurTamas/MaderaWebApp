@@ -2,17 +2,13 @@ package com.forms;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.beans.Client;
-import com.beans.Gamme;
+import com.beans.*;
 import com.beans.Module;
-import com.beans.Projet;
 import com.dao.*;
 import org.joda.time.DateTime;
 
@@ -20,8 +16,8 @@ import org.joda.time.DateTime;
 public final class CreationProjetForm {
     private static final String CHAMP_CHOIX_CLIENT = "choixNouveauClient";
     private static final String CHAMP_LISTE_CLIENTS = "listeClients";
-    private static final String CHAMP_LISTE_GAMMES = "listeGammes";
-    private static final String CHAMP_LISTE_MODULES = "listeModules";
+    private static final String CHAMP_LISTE_GAMMES = "listGammes";
+    private static final String CHAMP_LISTE_MODULES = "listModules";
     private static final String CHAMP_DATE = "dateProjet";
     private static final String CHAMP_NUMERO = "numeroProjet";
     private static final String CHAMP_MODE_PAIEMENT = "modePaiementProjet";
@@ -43,9 +39,11 @@ public final class CreationProjetForm {
     private ModuleDao moduleDao;
 
 
-    public CreationProjetForm(ClientDao clientDao, ProjetDao projetDao) {
+    public CreationProjetForm(ClientDao clientDao, ProjetDao projetDao, GammeDao gammeDao, ModuleDao moduleDao) {
         this.clientDao = clientDao;
         this.projetDao = projetDao;
+        this.gammeDao = gammeDao;
+        this.moduleDao = moduleDao;
     }
 
     public Map<String, String> getErreurs() {
@@ -117,15 +115,45 @@ public final class CreationProjetForm {
         Projet projet = new Projet();
         projet.setDate_creation(dateTime);
 
+        Devis devis = new Devis();
+
         try {
+
+
             traiterClient(client, projet);
-            traiterNumeroProjet(numerProjet, projet);
+            traiterNumeroProjet(numerProjet, projet, devis);
             traiterModePaiement(modePaiement, projet);
             traiterAvancement(avancement, projet);
             traiterDateDebut(dateDebut, projet);
             traiterDateFin(dateFin, projet);
             traiterAdresse(adresse, projet);
-            //traiterGamme(gamme, projet );
+
+            projet.setCommercial((Utilisateur)request.getSession().getAttribute("sessionUtilisateur"));
+            //Initialisation du devis
+            devis.setStatus("En attente d'acceptation");
+            String mainOeuvre = "Main d\'oeuvre";
+            String prixMainOeuvre = "20000";
+            String traitementTerrain = "Traitement du terrain";
+            String prixTraitementTerrain = "10000";
+            String fraisVehicule = "Frais de vehicule de chantier";
+            String prixFraisVehicule = "3000";
+
+            List<String> tabMainOeuvre = new ArrayList<String>();
+            tabMainOeuvre.add(mainOeuvre);
+            tabMainOeuvre.add(prixMainOeuvre);
+            List<String> tabTraitementTerrain = new ArrayList<String>();
+            tabTraitementTerrain.add(traitementTerrain);
+            tabTraitementTerrain.add(prixTraitementTerrain);
+            List<String> tabVehicule = new ArrayList<String>();
+            tabVehicule.add(fraisVehicule);
+            tabVehicule.add(prixFraisVehicule);
+
+            List<List> listLigne = new ArrayList<List>();
+            listLigne.add(tabMainOeuvre);
+            listLigne.add(tabTraitementTerrain);
+            listLigne.add(tabVehicule);
+
+            devis.setLigneDevis(listLigne);
 
             if (strGamme != null && strModule != null) {
                 Long idGamme = Long.parseLong(strGamme);
@@ -134,29 +162,62 @@ public final class CreationProjetForm {
                 Long idModule = Long.parseLong(strModule);
                 Module module = moduleDao.trouver(idModule);
                 traiterModule(module, projet, gamme);
+                traiterDevis(devis, module, projet);
             } else {
                 if (strGamme == null)
                     setErreur(CHAMP_LISTE_GAMMES, "Veuillez renseigner une gamme");
-                if(strModule == null)
+                if (strModule == null)
                     setErreur(CHAMP_LISTE_MODULES, "Veuillez renseigner un module");
             }
 
             if (erreurs.isEmpty()) {
                 projetDao.creer(projet);
-                resultat = "Succès de la création de la commande.";
+                resultat = "Succès de la création du projet.";
             } else {
-                resultat = "Échec de la création de la commande.";
+                resultat = "Échec de la création du projet.";
             }
         } catch (DAOException | ParseException e) {
             setErreur("imprévu", "Erreur imprévue lors de la création.");
-            resultat = "Échec de la création de la commande : une erreur imprévue est survenue, merci de réessayer dans quelques instants.";
+            resultat = "Échec de la création du projet : une erreur imprévue est survenue, merci de réessayer dans quelques instants.";
             e.printStackTrace();
         } catch (Exception e) {
-            setErreur("imprévu", "Échec de la création du projet, il existe un projet possedant le même numéro.");
-            resultat = "Échec de la création du projet, il existe un projet possedant le même numéro.";
+            setErreur("imprévu", e.getMessage());
+            resultat = e.getMessage();
         }
 
         return projet;
+    }
+
+    private void traiterDevis(Devis devis, Module module, Projet projet) {
+        try {
+            validationDevis(module, module);
+        } catch (FormValidationException e) {
+            setErreur(CHAMP_LISTE_MODULES, e.getMessage());
+        }
+        List<List> lstLignes= devis.getLigneDevis();
+        List<String> ligneModule = new ArrayList<>();
+        ligneModule.add(module.getLibelle());
+        ligneModule.add(module.getPrix_ht());
+        List<String> tabTVA = new ArrayList<String>();
+        String TVA = "TVA";
+        String prixTVA = "20%";
+        tabTVA.add(TVA);
+        tabTVA.add(prixTVA);
+        lstLignes.add(ligneModule);
+        lstLignes.add(tabTVA);
+        devis.setLigneDevis(lstLignes);
+
+        Integer prixHtModule = Integer.parseInt(module.getPrix_ht());
+        Integer prixHTDevis = prixHtModule + 33000;
+        devis.setPrixHT(prixHTDevis.toString());
+        Double prixTTC = prixHTDevis * 1.20;
+        devis.setPrixTTC(prixTTC.toString());
+        projet.setDevis(devis);
+    }
+
+    private void validationDevis(Module module, Module module1) throws FormValidationException {
+
+        //Implementer les verifications a faire pour la generation du devis par rapport au module
     }
 
     private void traiterModule(Module module, Projet projet, Gamme gamme) {
@@ -170,7 +231,7 @@ public final class CreationProjetForm {
 
     private void validationModule(Module module, Gamme gamme) throws FormValidationException {
         if (module != null) {
-            if (gamme.getId() != module.getGamme().getId()) {
+            if (!gamme.getId().equals(module.getGamme().getId())) {
                 throw new FormValidationException("Le module selectionné ne fait pas partie de la gamme.");
             }
         } else {
@@ -283,18 +344,20 @@ public final class CreationProjetForm {
         }
     }
 
-    private void traiterNumeroProjet(String numeroProjet, Projet projet) {
+    private void traiterNumeroProjet(String numeroProjet, Projet projet, Devis devis) {
         try {
-            validationNumero(numeroProjet);
+            validationNumero(numeroProjet, devis);
         } catch (FormValidationException e) {
             setErreur(CHAMP_NUMERO, e.getMessage());
         }
         projet.setNumero_projet(numeroProjet);
     }
 
-    private void validationNumero(String numeroProjet) throws FormValidationException {
+    private void validationNumero(String numeroProjet, Devis devis) throws FormValidationException {
         if (numeroProjet == null) {
             throw new FormValidationException("Merci d'entrer un numéro de projet.");
+        } else {
+            devis.setNumeroDevis(numeroProjet + 'D');
         }
     }
 

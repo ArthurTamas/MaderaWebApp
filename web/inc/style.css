@@ -111,6 +111,15 @@ tr.impair {
     background-color: #fff;
 }
 
+tr.totalHT {
+    background-color: #e7a418;
+}
+
+tr.totalTTC {
+    background-color: #d95200;
+}
+
+
 th {
     color: #0568CD;
     border: 1px solid #0568CD;

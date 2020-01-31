@@ -46,9 +46,9 @@ public class ProjetDaoImpl implements ProjetDao {
                     projet.getAvancement(),
                     projet.getModalite_paiement(),
                     projet.getAdresse(),
-                    null,
-                    null,
-                    null,
+                    null, //id_maison obselete
+                    projet.getClient().getId(),
+                    projet.getCommercial().getId(),
                     projet.getDate_creation().toLocalDate().toString(),
                     projet.getDate_debut_prestation().toLocalDate().toString(),
                     projet.getDate_fin_prestation().toLocalDate().toString()

@@ -1,5 +1,6 @@
 package com.dao;
 
+import com.beans.Gamme;
 import com.beans.Module;
 
 import java.sql.Connection;
@@ -11,11 +12,12 @@ import java.util.List;
 
 
 import static com.dao.DAOUtilitaire.fermeturesSilencieuses;
+import static com.dao.DAOUtilitaire.initialisationRequetePreparee;
 
 public class ModuleDaoImpl implements ModuleDao{
 
     private static final String SQL_SELECT        = "SELECT id_module, libelle_module, CODE_MODULE, PRIX_HT, PRIX_TTC, ID_GAMME FROM Module_Maison ORDER BY id_module";
-    private static final String SQL_SELECT_PAR_ID = "SELECT id_module, nom, prenom, adresse, telephone, email FROM Module_Maison WHERE id_module = ?";
+    private static final String SQL_SELECT_PAR_ID = "SELECT id_module, libelle_module, CODE_MODULE, PRIX_HT, PRIX_TTC, ID_GAMME FROM Module_Maison WHERE id_module = ?";
     private static final String SQL_INSERT        = "INSERT INTO Module_Maison (user_group, nom, prenom, adresse, telephone, email, password) VALUES ('module', ?, ?, ?, ?, ?, ?)";
     private static final String SQL_DELETE_PAR_ID = "DELETE FROM Module_Maison WHERE id_module = ?";
 
@@ -32,7 +34,33 @@ public class ModuleDaoImpl implements ModuleDao{
 
     @Override
     public Module trouver(long id) throws DAOException {
-        return null;
+        return trouver(SQL_SELECT_PAR_ID, id);
+    }
+    public Module trouver(String sql, Object... objets ) throws DAOException {
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Module module = null;
+
+        try {
+            /* Récupération d'une connexion depuis la Factory */
+            connexion = daoFactory.getConnection();
+            /*
+             * Préparation de la requête avec les objets passés en arguments
+             * (ici, uniquement un id) et exécution.
+             */
+            preparedStatement = initialisationRequetePreparee( connexion, sql, false, objets );
+            resultSet = preparedStatement.executeQuery();
+            /* Parcours de la ligne de données retournée dans le ResultSet */
+            if ( resultSet.next() ) {
+                module = map( resultSet );
+            }
+        } catch ( SQLException e ) {
+            throw new DAOException( e );
+        } finally {
+            fermeturesSilencieuses( resultSet, preparedStatement, connexion );
+        }
+        return module;
     }
 
     @Override
