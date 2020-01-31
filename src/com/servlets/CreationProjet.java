@@ -80,10 +80,10 @@ public class CreationProjet extends HttpServlet {
             session.setAttribute(SESSION_CLIENTS, clients);
 
             /* Ensuite récupération de la map des commandes dans la session */
-            Map<Integer, Projet> projets = (HashMap<Integer, Projet>) session.getAttribute(SESSION_PROJETS);
+            Map<Long, Projet> projets = (HashMap<Long, Projet>) session.getAttribute(SESSION_PROJETS);
             /* Si aucune map n'existe, alors initialisation d'une nouvelle map */
             if (projets == null) {
-                projets = new HashMap<Integer, Projet>();
+                projets = new HashMap<Long, Projet>();
             }
             /* Puis ajout de la commande courante dans la map */
             projets.put(projet.getId(), projet);

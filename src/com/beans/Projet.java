@@ -7,7 +7,7 @@ import org.joda.time.DateTime;
 
 public class Projet implements Serializable {
 
-    private Integer id;
+    private Long id;
     private String numero_projet;
     private String avancement;
     private DateTime date_creation;
@@ -22,11 +22,11 @@ public class Projet implements Serializable {
     private Module module;
     private Devis devis;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

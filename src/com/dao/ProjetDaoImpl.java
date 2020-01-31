@@ -2,6 +2,7 @@ package com.dao;
 
 import com.beans.Gamme;
 import com.beans.Projet;
+import com.beans.Utilisateur;
 import org.joda.time.DateTime;
 
 import java.sql.*;
@@ -13,11 +14,11 @@ import static com.dao.DAOUtilitaire.initialisationRequetePreparee;
 
 public class ProjetDaoImpl implements ProjetDao {
 
-    private static final String SQL_SELECT = "SELECT ID_PROJET, NUMERO_PROJET,AVANCEMENT,DATE_CREATION,MODALITE_PAIEMENT,DATE_DEBUT_PRESTATION,DATE_FIN_PRESTATION,ADRESSE,ID_MAISON,ID_CLIENT,ID_COMMERCIAL FROM Projet ORDER BY ID_PROJET";
+    private static final String SQL_SELECT = "SELECT ID_PROJET, NUMERO_PROJET,AVANCEMENT,DATE_CREATION,MODALITE_PAIEMENT,DATE_DEBUT_PRESTATION,DATE_FIN_PRESTATION,ADRESSE,ID_MAISON,ID_CLIENT,ID_COMMERCIAL, ID_GAMME, ID_MODULE FROM Projet ORDER BY ID_PROJET";
     private static final String SQL_SELECT_PAR_ID = "SELECT ID_PROJET, NUMERO_PROJET,AVANCEMENT,DATE_CREATION,MODALITE_PAIEMENT,DATE_DEBUT_PRESTATION,DATE_FIN_PRESTATION,ADRESSE,ID_MAISON,ID_CLIENT,ID_COMMERCIAL FROM Projet WHERE ID_PROJET = ?";
 
     //private static final String SQL_INSERT = "INSERT INTO Projet (NUMERO_PROJET,AVANCEMENT,DATE_CREATION,MODALITE_PAIEMENT,DATE_DEBUT_PRESTATION,DATE_FIN_PRESTATION,ADRESSE,ID_MAISON,ID_CLIENT,ID_COMMERCIAL) VALUES (?,?,?,?,?,?,?,?,?,?)";
-    private static final String SQL_INSERT = "INSERT INTO Projet (NUMERO_PROJET,AVANCEMENT,MODALITE_PAIEMENT,ADRESSE,ID_MAISON,ID_CLIENT,ID_COMMERCIAL, DATE_CREATION, DATE_DEBUT_PRESTATION, DATE_FIN_PRESTATION) VALUES (?,?,?,?,?,?,?,?,?,?)";
+    private static final String SQL_INSERT = "INSERT INTO Projet (NUMERO_PROJET,AVANCEMENT,MODALITE_PAIEMENT,ADRESSE,ID_MAISON,ID_CLIENT,ID_COMMERCIAL, DATE_CREATION, DATE_DEBUT_PRESTATION, DATE_FIN_PRESTATION, ID_GAMME, ID_MODULE) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String SQL_SELECTIDWITHROWID = "SELECT ID_PROJET FROM Projet WHERE ROWID = ?";
     private static final String SQL_SELECTIDWITNUMERO = "SELECT ID_PROJET FROM Projet WHERE NUMERO_PROJET = ?";
     private static final String SQL_DELETE_PAR_ID = "DELETE FROM Projet WHERE id_projet = ?";
@@ -51,8 +52,11 @@ public class ProjetDaoImpl implements ProjetDao {
                     projet.getCommercial().getId(),
                     projet.getDate_creation().toLocalDate().toString(),
                     projet.getDate_debut_prestation().toLocalDate().toString(),
-                    projet.getDate_fin_prestation().toLocalDate().toString()
-            );
+                    projet.getDate_fin_prestation().toLocalDate().toString(),
+                    projet.getGamme().getId(),
+                    projet.getModule().getId()
+
+                    );
             int statut = preparedStatement.executeUpdate();
             if (statut == 0) {
                 throw new DAOException("Échec de la création du projet, aucune ligne ajoutée dans la table.");
@@ -60,7 +64,7 @@ public class ProjetDaoImpl implements ProjetDao {
             valeursAutoGenerees = preparedStatement.getGeneratedKeys();
             if (valeursAutoGenerees.next()) {
                 String ROWID = valeursAutoGenerees.getString(1);
-                Integer Id = trouverWithRowID(ROWID);
+                Long Id = trouverWithRowID(ROWID);
                 projet.setId(Id);
             } else {
                 throw new DAOException("Échec de la création du projet en base, aucun ID auto-généré retourné.");
@@ -79,18 +83,18 @@ public class ProjetDaoImpl implements ProjetDao {
         return null;
     }
 
-    public Integer trouverWithRowID(String ROWID) throws DAOException {
+    public Long trouverWithRowID(String ROWID) throws DAOException {
         Connection connexion = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        Integer id = null;
+        Long id = null;
 
         try {
             connexion = daoFactory.getConnection();
             preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECTIDWITHROWID, true, ROWID);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                id = resultSet.getInt(1);
+                id = resultSet.getLong(1);
 
             } else {
                 throw new DAOException("Échec de la recuperation de l'ID projet de la ligne insérée");
@@ -185,7 +189,7 @@ public class ProjetDaoImpl implements ProjetDao {
 
     private Projet map(ResultSet resultSet) throws SQLException {
         Projet projet = new Projet();
-        projet.setId(resultSet.getInt("id_projet"));
+        projet.setId(resultSet.getLong("id_projet"));
         projet.setNumero_projet(resultSet.getString("numero_projet"));
         projet.setAvancement(resultSet.getString("avancement"));
         projet.setDate_creation(new DateTime(resultSet.getDate("date_creation")));
@@ -194,9 +198,14 @@ public class ProjetDaoImpl implements ProjetDao {
         projet.setDate_fin_prestation(new DateTime(resultSet.getDate("date_fin_prestation")));
         projet.setAdresse(resultSet.getString("adresse"));
 
-
+        GammeDao gammeDao = daoFactory.getGammeDao();
+        projet.setGamme(gammeDao.trouver(resultSet.getLong("id_gamme")));
+        ModuleDao moduleDao = daoFactory.getModuleDao();
+        projet.setModule(moduleDao.trouver(resultSet.getLong("id_module")));
         ClientDao clientDao = daoFactory.getClientDao();
         projet.setClient(clientDao.trouver(resultSet.getLong("id_client")));
+        UtilisateurDao utilisateurDao = daoFactory.getUtilisateurDao();
+        projet.setCommercial(utilisateurDao.trouver(resultSet.getLong("id_commercial")));
 
         return projet;
     }

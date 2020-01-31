@@ -100,6 +100,10 @@
         <servlet-name>DetailsProjet</servlet-name>
         <servlet-class>com.servlets.DetailsProjet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SuppressionProjet</servlet-name>
+        <servlet-class>com.servlets.SuppressionProjet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>Deconnexion</servlet-name>
@@ -144,5 +148,9 @@
     <servlet-mapping>
         <servlet-name>DetailsProjet</servlet-name>
         <url-pattern>/detailsProjet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SuppressionProjet</servlet-name>
+        <url-pattern>/suppressionProjet</url-pattern>
     </servlet-mapping>
 </web-app>

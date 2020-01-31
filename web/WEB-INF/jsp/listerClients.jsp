@@ -9,12 +9,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8" />
+        <meta charset="utf-8"/>
         <title>Liste des clients existants</title>
-        <link type="text/css" rel="stylesheet" href="<c:url value="/inc/style.css"></c:url>" />
+        <link type="text/css" rel="stylesheet" href="<c:url value="/inc/style.css"></c:url>"/>
     </head>
     <body>
-        <c:import url="/inc/menu.jsp" ></c:import>
+        <c:import url="/inc/menu.jsp"></c:import>
         <div id="corps">
             <c:choose>
                 <%-- Si aucun client n'existe en session, affichage d'un message par défaut. --%>
@@ -31,6 +31,8 @@
                             <th>Téléphone</th>
                             <th>Email</th>
                             <th class="action">Supprimer</th>
+                            <th class="actionDetail">Détails</th>
+
                         </tr>
                             <%-- Parcours de la Map des clients en session, et utilisation de l'objet varStatus. --%>
                         <c:forEach items="${ sessionScope.clients }" var="mapClients" varStatus="boucle">
@@ -42,17 +44,17 @@
                                 <td><c:out value="${ mapClients.value.adresse }"></c:out></td>
                                 <td><c:out value="${ mapClients.value.telephone }"></c:out></td>
                                 <td><c:out value="${ mapClients.value.email }"></c:out></td>
-                                        <!-- <%--<td>
-                                        On ne construit et affiche un lien vers l'image que si elle existe.
-                                   <c:if test="${ !empty mapClients.value.image }">
-                                        <c:set var="image"><c:out value="${ mapClients.value.image }"></c:out></c:set>
-                                        <a href="<c:url value="/images/${ image }"></a>">Voir</a>
-                                    </c:if>
-                                </td>--%>-->
-                                    <%-- Lien vers la servlet de suppression, avec passage du nom du client - c'est-à-dire la clé de la Map - en paramètre grâce à la balise <c:param></c:param>. --%>
+
                                 <td class="action">
                                     <a href="<c:url value="/suppressionClient"><c:param name="idClient" value="${ mapClients.key }" ></c:param></c:url>">
-                                        <img src="<c:url value="/inc/supprimer.png"></c:url>" alt="Supprimer" />
+                                        <img src="<c:url value="/inc/supprimer.png"></c:url>" alt="Supprimer"/>
+                                    </a>
+                                </td>
+                                <td class="action">
+
+                                    <a href="<c:url value="/detailsProjet"><c:param name="idProjet" value="${ mapProjets.key }" ></c:param></c:url>"
+                                       onclick="return confirm('Etes vous sur ?')">
+                                        <img src="<c:url value="/inc/edit-file-icon.png"></c:url>" alt="Details"/>
                                     </a>
                                 </td>
                             </tr>

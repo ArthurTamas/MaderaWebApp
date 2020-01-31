@@ -31,7 +31,34 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 
     @Override
     public Utilisateur trouver(long id) throws DAOException {
-        return null;
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Utilisateur utilisateur = null;
+
+        try {
+            /* Récupération d'une connexion depuis la Factory */
+            connexion = daoFactory.getConnection();
+            /*
+             * Préparation de la requête avec les objets passés en arguments
+             * (ici, uniquement un id) et exécution.
+             */
+            preparedStatement = initialisationRequetePreparee( connexion, SQL_SELECT_PAR_ID, false, id);
+
+            resultSet = preparedStatement.executeQuery();
+
+            /* Parcours de la ligne de données retournée dans le ResultSet */
+            if (resultSet.next()) {
+
+                utilisateur = map(resultSet);
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } finally {
+            fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+        }
+
+        return utilisateur;
     }
 
     @Override
@@ -48,6 +75,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
     public void supprimer(Utilisateur client) throws DAOException {
 
     }
+
 
     private Utilisateur trouver(String sql, String email, String password) throws DAOException {
         Connection connexion = null;

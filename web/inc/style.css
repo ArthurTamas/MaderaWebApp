@@ -131,6 +131,11 @@ th.action {
     color: #900;
 }
 
+ th.actionDetail {
+     border: 1px solid #00991b;
+     color: #00991b;
+ }
+
 td {
     border: 1px solid #ddd;
     padding: 5px;

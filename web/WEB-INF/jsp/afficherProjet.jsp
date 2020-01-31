@@ -47,6 +47,8 @@
                                             pattern="dd/MM/yyyy"></joda:format></p>
             <p>Date de fin : <joda:format value="${ projet.date_fin_prestation }"
                                           pattern="dd/MM/yyyy"></joda:format></p>
+            <p>Modalité de paiement : <c:out value="${ projet.modalite_paiement }"></c:out></p>
+            <p>Avancement : <c:out value="${ projet.avancement }"></c:out></p>
             <p>Adresse : <c:out value="${ projet.adresse }"></c:out></p>
             <p>Commercial attribué au projet : <c:out
                     value="${ projet.commercial.prenom } ${ projet.commercial.nom}"></c:out></p>

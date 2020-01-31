@@ -11,6 +11,7 @@
         <p><a href="<c:url value="/creationClient"/>">Créer un nouveau client</a></p>
         <p><a href="<c:url value="/creationProjet"/>">Créer un nouveau projet</a></p>
         <p><a href="<c:url value="/listeClients"/>">Voir les clients existants</a></p>
+        <p><a href="<c:url value="/listeProjets"/>">Liste de tous les projets</a></p>
     </c:if>
     <c:if test="${ sessionScope.userGroup == 'client'}">
         <p><a href="<c:url value="/notImplement.jsp"/>">Mes informations</a></p>
