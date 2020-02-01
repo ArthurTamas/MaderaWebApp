@@ -11,8 +11,9 @@
     <head>
         <meta charset="utf-8"/>
         <title>Détails du projet</title>
-        <link type="text/css" rel="stylesheet" href="<c:url value="/inc/style.css"></c:url>"/>
-    </head>
+        <link rel="stylesheet" href="<c:url value="/inc/boostrap/css/bootstrap.min.css"></c:url>"/>
+        <script src="<c:url value="/inc/boostrap/js/bootstrap.min.css"></c:url>"></script>
+        <link type="text/css" rel="stylesheet" href="<c:url value="/inc/style.css"></c:url>"/>    </head>
     <body>
         <c:import url="/inc/menu.jsp"></c:import>
         <div id="corps">
@@ -25,8 +26,8 @@
                 <c:otherwise>
 
 
-                    <h1 id="composMaison">Projet numéro <c:out
-                            value="${ requestScope.projet.numero_projet }"></c:out></h1>
+                    <label id="composMaison">Projet numéro <c:out
+                            value="${ requestScope.projet.numero_projet }"></c:out></label>
                     <p>Date de début : <joda:format value="${ requestScope.projet.date_debut_prestation }"
                                                     pattern="dd/MM/yyyy"></joda:format></p>
                     <p>Date de fin : <joda:format value="${ requestScope.projet.date_fin_prestation }"
@@ -39,7 +40,7 @@
                     <p>Gamme : <c:out value="${ requestScope.projet.gamme.libelle }"></c:out></p>
                     <p>Module : <c:out value="${ requestScope.projet.module.libelle }"></c:out></p>
 
-                    <h1 id="composMaison">Devis</h1>
+                    <label id="composMaison">Devis</label>
                     <p>Numero de devis : <c:out value="${ requestScope.projet.devis.numeroDevis }"></c:out></p>
                     <p>Status du devis : <c:out value="${ requestScope.projet.devis.status }"></c:out></p>
                     <c:if test="${ !empty requestScope.projet.devis.ligneDevis }">

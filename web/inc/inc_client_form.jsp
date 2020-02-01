@@ -37,8 +37,7 @@
 <br/>
 
 <label for="passwordClient">Mot de passe</label>
-<input type="password" id="passwordClient" name="passwordClient" autocomplete="new-password"
-       value="<c:out value="${client.password}"/>" size="30" maxlength="60"/>
+<input type="password" id="passwordClient" name="passwordClient" autocomplete="new-password" size="30" maxlength="60"/>
 <span class="erreur">${form.erreurs['passwordClient']}</span>
 <br/>
 

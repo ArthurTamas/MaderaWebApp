@@ -11,7 +11,9 @@
     <head>
         <meta charset="utf-8"/>
         <title>Acceuil</title>
-        <link type="text/css" rel="stylesheet" href="<c:url value="/inc/style.css"/>"/>
+        <link rel="stylesheet" href="<c:url value="/inc/boostrap/css/bootstrap.min.css"></c:url>"/>
+        <script src="<c:url value="/inc/boostrap/js/bootstrap.min.css"></c:url>"></script>
+        <link type="text/css" rel="stylesheet" href="<c:url value="/inc/style.css"></c:url>"/>
     </head>
     <body>
         <c:import url="/inc/menu.jsp"/>

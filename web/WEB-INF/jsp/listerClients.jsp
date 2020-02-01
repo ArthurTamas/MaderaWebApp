@@ -11,8 +11,9 @@
     <head>
         <meta charset="utf-8"/>
         <title>Liste des clients existants</title>
-        <link type="text/css" rel="stylesheet" href="<c:url value="/inc/style.css"></c:url>"/>
-    </head>
+        <link rel="stylesheet" href="<c:url value="/inc/boostrap/css/bootstrap.min.css"></c:url>"/>
+        <script src="<c:url value="/inc/boostrap/js/bootstrap.min.css"></c:url>"></script>
+        <link type="text/css" rel="stylesheet" href="<c:url value="/inc/style.css"></c:url>"/>    </head>
     <body>
         <c:import url="/inc/menu.jsp"></c:import>
         <div id="corps">
@@ -32,7 +33,6 @@
                             <th>Email</th>
                             <th class="action">Supprimer</th>
                             <th class="actionDetail">Détails</th>
-
                         </tr>
                             <%-- Parcours de la Map des clients en session, et utilisation de l'objet varStatus. --%>
                         <c:forEach items="${ sessionScope.clients }" var="mapClients" varStatus="boucle">
@@ -46,14 +46,13 @@
                                 <td><c:out value="${ mapClients.value.email }"></c:out></td>
 
                                 <td class="action">
-                                    <a href="<c:url value="/suppressionClient"><c:param name="idClient" value="${ mapClients.key }" ></c:param></c:url>">
+                                    <a href="<c:url value="/suppressionClient"><c:param name="idClient" value="${ mapClients.key }" ></c:param></c:url>"
+                                       onclick="return confirm('Etes vous sur de vouloir supprimer ce client?');">
                                         <img src="<c:url value="/inc/supprimer.png"></c:url>" alt="Supprimer"/>
                                     </a>
                                 </td>
                                 <td class="action">
-
-                                    <a href="<c:url value="/detailsProjet"><c:param name="idProjet" value="${ mapProjets.key }" ></c:param></c:url>"
-                                       onclick="return confirm('Etes vous sur ?')">
+                                    <a href="<c:url value="/detailsClient"><c:param name="idClient" value="${ mapClients.key }" ></c:param></c:url>">
                                         <img src="<c:url value="/inc/edit-file-icon.png"></c:url>" alt="Details"/>
                                     </a>
                                 </td>

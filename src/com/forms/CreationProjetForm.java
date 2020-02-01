@@ -176,7 +176,7 @@ public final class CreationProjetForm {
             } else {
                 resultat = "Échec de la création du projet.";
             }
-        } catch (DAOException | ParseException e) {
+        } catch (DAOException e) {
             setErreur("imprévu", "Erreur imprévue lors de la création.");
             resultat = "Échec de la création du projet : une erreur imprévue est survenue, merci de réessayer dans quelques instants.";
             e.printStackTrace();
@@ -269,8 +269,8 @@ public final class CreationProjetForm {
 
     private void validationAdresse(String adresse) throws FormValidationException {
         if (adresse != null) {
-            if (adresse.length() < 2) {
-                throw new FormValidationException("L'adresse doit contenir au moins 2 caractères.");
+            if (adresse.length() < 10) {
+                throw new FormValidationException("L'adresse doit contenir au moins 10 caractères.");
             }
         } else {
             throw new FormValidationException("Merci d'entrer une adresse.");
@@ -278,14 +278,16 @@ public final class CreationProjetForm {
     }
 
     private void traiterDateFin(String dateFin, Projet projet) throws ParseException {
+        DateTime dt = new DateTime();
         try {
             dateFin = validationDateFin(dateFin);
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            Date dateTmp = formatter.parse(dateFin);
+            dt = new DateTime(dateTmp);
         } catch (FormValidationException e) {
             setErreur(CHAMP_DATE_FIN, e.getMessage());
         }
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        Date dateTmp = formatter.parse(dateFin);
-        DateTime dt = new DateTime(dateTmp);
+
         projet.setDate_fin_prestation(dt);
     }
 
@@ -302,14 +304,15 @@ public final class CreationProjetForm {
     }
 
     private void traiterDateDebut(String dateDebut, Projet projet) throws ParseException {
+        DateTime dt = new DateTime();
         try {
             dateDebut = validationDateDebut(dateDebut);
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            Date dateTmp = formatter.parse(dateDebut);
+            dt = new DateTime(dateTmp);
         } catch (FormValidationException e) {
             setErreur(CHAMP_DATE_DEBUT, e.getMessage());
         }
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        Date dateTmp = formatter.parse(dateDebut);
-        DateTime dt = new DateTime(dateTmp);
         projet.setDate_debut_prestation(dt);
     }
 

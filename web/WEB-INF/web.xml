@@ -101,6 +101,14 @@
         <servlet-class>com.servlets.DetailsProjet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>DetailsClient</servlet-name>
+        <servlet-class>com.servlets.DetailsClient</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModifierInfosClient</servlet-name>
+        <servlet-class>com.servlets.ModifierInfosClient</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>SuppressionProjet</servlet-name>
         <servlet-class>com.servlets.SuppressionProjet</servlet-class>
     </servlet>
@@ -148,6 +156,14 @@
     <servlet-mapping>
         <servlet-name>DetailsProjet</servlet-name>
         <url-pattern>/detailsProjet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailsClient</servlet-name>
+        <url-pattern>/detailsClient</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModifierInfosClient</servlet-name>
+        <url-pattern>/modifierInfosClient</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SuppressionProjet</servlet-name>

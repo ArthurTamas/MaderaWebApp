@@ -3,10 +3,7 @@ package com.dao;
 import static com.dao.DAOUtilitaire.fermeturesSilencieuses;
 import static com.dao.DAOUtilitaire.initialisationRequetePreparee;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +12,8 @@ import com.beans.Client;
 public class ClientDaoImpl implements ClientDao {
 
     private static final String SQL_SELECT        = "SELECT id_utilisateur, nom, prenom, adresse, telephone, email FROM Utilisateur WHERE user_group = 'client' ORDER BY id_utilisateur";
+    private static final String SQL_UPDATE        = "UPDATE Utilisateur SET nom = ?, prenom = ?, adresse = ?, telephone = ?, email = ?, password = ? WHERE id_utilisateur = ?";
+    private static final String SQL_SELECTIDWITHROWID = "SELECT id_utilisateur, nom, prenom, adresse, telephone, email FROM Utilisateur WHERE rowid = ?";
     private static final String SQL_SELECT_PAR_ID = "SELECT id_utilisateur, nom, prenom, adresse, telephone, email FROM Utilisateur WHERE id_utilisateur = ?";
     private static final String SQL_INSERT        = "INSERT INTO Utilisateur (user_group, nom, prenom, adresse, telephone, email, password) VALUES ('client', ?, ?, ?, ?, ?, ?)";
     private static final String SQL_DELETE_PAR_ID = "DELETE FROM Utilisateur WHERE id_utilisateur = ?";
@@ -50,7 +49,9 @@ public class ClientDaoImpl implements ClientDao {
             }
             valeursAutoGenerees = preparedStatement.getGeneratedKeys();
             if ( valeursAutoGenerees.next() ) {
-                client.setId( valeursAutoGenerees.getLong( 1 ) );
+                String ROWID = valeursAutoGenerees.getString(1);
+                Long id = trouverWithRowID(ROWID);
+                client.setId(id);
             } else {
                 throw new DAOException( "Échec de la création du client en base, aucun ID auto-généré retourné." );
             }
@@ -59,6 +60,30 @@ public class ClientDaoImpl implements ClientDao {
         } finally {
             fermeturesSilencieuses( valeursAutoGenerees, preparedStatement, connexion );
         }
+    }
+
+    private Long trouverWithRowID(String rowid) {
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Long id = null;
+
+        try {
+            connexion = daoFactory.getConnection();
+            preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECTIDWITHROWID, true, rowid);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                id = resultSet.getLong(1);
+
+            } else {
+                throw new DAOException("Échec de la recuperation de l'ID client de la ligne insérée");
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } finally {
+            fermeturesSilencieuses(preparedStatement, connexion);
+        }
+        return id;
     }
 
     /* Implémentation de la méthode définie dans l'interface ClientDao */
@@ -138,6 +163,28 @@ public class ClientDaoImpl implements ClientDao {
         }
 
         return client;
+    }
+
+    @Override
+    public void maj( Client client ) throws DAOException {
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connexion = daoFactory.getConnection();
+            preparedStatement = initialisationRequetePreparee( connexion, SQL_UPDATE, false,
+                    client.getNom(), client.getPrenom(),
+                    client.getAdresse(), client.getTelephone(),
+                    client.getEmail(), client.getPassword(), client.getId());
+            int statut = preparedStatement.executeUpdate();
+            if ( statut == 0 ) {
+                throw new DAOException( "Échec de la mise a jour du client." );
+            }
+        } catch ( SQLException e ) {
+            throw new DAOException( e );
+        } finally {
+            fermeturesSilencieuses( preparedStatement, connexion );
+        }
     }
 
     /*

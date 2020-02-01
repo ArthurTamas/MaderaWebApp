@@ -22,11 +22,11 @@ public class SuppressionProjet extends HttpServlet {
 
     public static final String VUE = "/listeProjets";
 
-    private ProjetDao        commandeDao;
+    private ProjetDao        projetDao;
 
     public void init() throws ServletException {
         /* Récupération d'une instance de notre DAO Utilisateur */
-        this.commandeDao = ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getProjetDao();
+        this.projetDao = ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getProjetDao();
     }
 
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
@@ -42,7 +42,7 @@ public class SuppressionProjet extends HttpServlet {
         if ( id != null && projets != null ) {
             try {
                 /* Alors suppression de la projet de la BDD */
-                commandeDao.supprimer( projets.get( id ) );
+                projetDao.supprimer( projets.get( id ) );
                 /* Puis suppression de la projet de la Map */
                 projets.remove( id );
             } catch ( DAOException e ) {

@@ -11,7 +11,9 @@
     <head>
         <meta charset="utf-8"/>
         <title>Affichage d'un client</title>
-        <link type="text/css" rel="stylesheet" href="<c:url value="/inc/style.css"/>"/>
+        <link rel="stylesheet" href="<c:url value="/inc/boostrap/css/bootstrap.min.css"></c:url>"/>
+        <script src="<c:url value="/inc/boostrap/js/bootstrap.min.css"></c:url>"></script>
+        <link type="text/css" rel="stylesheet" href="<c:url value="/inc/style.css"></c:url>"/>
     </head>
     <body>
         <c:import url="/inc/menu.jsp"/>
@@ -21,7 +23,7 @@
             <p>Prénom : <c:out value="${ client.prenom }"/></p>
             <p>Adresse : <c:out value="${ client.adresse }"/></p>
             <p>Numéro de téléphone : <c:out value="${ client.telephone }"/></p>
-            <%--<p>Email : <c:out value="${ client.email }"/></p>--%>
+            <p>Email : <c:out value="${ client.email }"/></p>
         </div>
     </body>
 </html>

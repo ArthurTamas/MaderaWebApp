@@ -19,6 +19,9 @@
     <head>
         <meta charset="utf-8"/>
         <title>Création d'une projet</title>
+        <script src="<c:url value="/inc/jquery-3.4.1.js"></c:url>"></script>
+        <link rel="stylesheet" href="<c:url value="/inc/bootstrap/css/bootstrap.css"></c:url>"/>
+        <script src="<c:url value="/inc/bootstrap/js/bootstrap.js"></c:url>"></script>
         <link type="text/css" rel="stylesheet" href="<c:url value="/inc/style.css"></c:url>"/>
     </head>
     <body>
@@ -59,12 +62,14 @@
                 <fieldset>
                     <legend>Informations projet</legend>
 
-                    <label for="dateProjet">Date de création <span class="requis">*</span></label>
-                    <input type="text" id="dateProjet" name="dateProjet"
-                           value="<joda:format value="${ projet.date_creation }" pattern="dd-MM-yyyy"></joda:format>"
-                           size="10" maxlength="10" disabled/>
-                    <span class="erreur">${form.erreurs['dateProjet']}</span>
-                    <br/>
+                    <c:if test="${ !empty projet.date_creation}">
+                        <label for="dateProjet">Date de création </label>
+                        <input type="text" id="dateProjet" name="dateProjet"
+                               value="<joda:format value="${ projet.date_creation }" pattern="dd/MM/yyyy"></joda:format>"
+                               size="10" maxlength="10" disabled/>
+                        <span class="erreur">${form.erreurs['dateProjet']}</span>
+                        <br/>
+                    </c:if>
 
                     <label for="numeroProjet">Numéro de projet <span class="requis">*</span></label>
                     <input type="text" id="numeroProjet" name="numeroProjet"
@@ -84,14 +89,14 @@
                     <span class="erreur">${form.erreurs['modePaiementProjet']}</span>
                     <br/>
 
-                    <label for="dateDebutProjet">Date de début de préstation<span class="requis">*</span></label>
+                    <label for="dateDebutProjet">Date de début<span class="requis">*</span></label>
                     <input type="text" id="dateDebutProjet" name="dateDebutProjet"
                            value="<joda:format value="${ projet.date_debut_prestation }" pattern="dd-MM-yyyy"></joda:format>"
                            size="10" maxlength="10"/>
                     <span class="erreur">${form.erreurs['dateDebutProjet']}</span>
                     <br/>
 
-                    <label for="dateFinProjet">Date de fin de préstation<span class="requis">*</span></label>
+                    <label for="dateFinProjet">Date de fin<span class="requis">*</span></label>
                     <input type="text" id="dateFinProjet" name="dateFinProjet"
                            value="<joda:format value="${ projet.date_fin_prestation }" pattern="dd-MM-yyyy"></joda:format>"
                            size="10" maxlength="10"/>
@@ -103,7 +108,7 @@
                            value="<c:out value="${projet.adresse}"></c:out>" size="20" maxlength="200"/>
                     <span class="erreur">${form.erreurs['adresseProjet']}</span>
                     <br/>
-                    <h1 id="composMaison">Composition de la maison</h1>
+                    <p id="composMaison">Composition de la maison</p>
 
                     <c:if test="${ !empty sessionScope.gammes }">
                         <label for="listGammes">Gamme de maison <span class="requis">*</span></label>
@@ -124,7 +129,7 @@
                             <option value="">Choisissez une module...</option>
                                 <%-- Boucle sur la map des modules --%>
                             <c:forEach items="${ sessionScope.modules }" var="mapModules">
-                                    <option value="${ mapModules.key }">${ mapModules.value.libelle }</option>
+                                <option value="${ mapModules.key }">${ mapModules.value.libelle }</option>
                             </c:forEach>
                         </select>
                         <span class="erreur">${form.erreurs['listModules']}</span>
@@ -144,7 +149,6 @@
              Si vous ne souhaitez pas télécharger et ajouter jQuery à votre projet, vous pouvez utiliser la version fournie directement en ligne par Google :
              <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
         --%>
-        <script src="<c:url value="/inc/jquery-3.4.1.js"></c:url>"></script>
 
         <%-- Petite fonction jQuery permettant le remplacement de la première partie du formulaire par la liste déroulante, au clic sur le bouton radio. --%>
         <script>

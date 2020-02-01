@@ -153,7 +153,24 @@ public class ProjetDaoImpl implements ProjetDao {
 
     @Override
     public void supprimer(Projet projet) throws DAOException {
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
 
+        try {
+            connexion = daoFactory.getConnection();
+            preparedStatement = initialisationRequetePreparee( connexion, SQL_DELETE_PAR_ID, false, projet.getId() );
+            int statut = preparedStatement.executeUpdate();
+            if ( statut == 0 ) {
+                throw new DAOException( "Échec de la suppression du projet, aucune ligne supprimée de la table." );
+            } else {
+                projet.setId( null );
+            }
+        } catch ( SQLException e ) {
+            throw new DAOException( e );
+        } finally {
+
+            fermeturesSilencieuses( preparedStatement, connexion );
+        }
     }
 
     private Projet trouver(String sql, String email, String password) throws DAOException {

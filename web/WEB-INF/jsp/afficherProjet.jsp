@@ -18,6 +18,8 @@
     <head>
         <meta charset="utf-8"/>
         <title>Affichage d'un projet</title>
+        <link rel="stylesheet" href="<c:url value="/inc/boostrap/css/bootstrap.min.css"></c:url>"/>
+        <script src="<c:url value="/inc/boostrap/js/bootstrap.min.css"></c:url>"></script>
         <link type="text/css" rel="stylesheet" href="<c:url value="/inc/style.css"></c:url>"/>
     </head>
     <body>
@@ -25,7 +27,7 @@
         <div id="corps">
             <p class="info">${ form.resultat }</p>
 
-            <h1 id="composMaison">Client</h1>
+            <label id="composMaison">Client</label>
             <p>Nom : <c:out value="${ projet.client.nom }"></c:out></p>
             <p>Prénom : <c:out value="${ projet.client.prenom }"></c:out></p>
 
@@ -41,7 +43,7 @@
                 <p>Email : <c:out value="${ projet.client.email }"></c:out></p>
             </c:if>
 
-            <h1 id="composMaison">Projet</h1>
+            <label id="composMaison">Projet</label>
             <p>Numéro de projet : <c:out value="${ projet.numero_projet }"></c:out></p>
             <p>Date de début : <joda:format value="${ projet.date_debut_prestation }"
                                             pattern="dd/MM/yyyy"></joda:format></p>
@@ -55,7 +57,7 @@
             <p>Gamme : <c:out value="${ projet.gamme.libelle }"></c:out></p>
 
 
-            <h1 id="composMaison">Devis</h1>
+            <label id="composMaison">Devis</label>
             <p>Numero de devis : <c:out value="${ projet.devis.numeroDevis }"></c:out></p>
             <p>Status du devis : <c:out value="${ projet.devis.status }"></c:out></p>
             <c:if test="${ !empty projet.devis.ligneDevis }">

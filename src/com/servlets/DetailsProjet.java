@@ -1,6 +1,5 @@
 package com.servlets;
 
-import com.beans.Client;
 import com.beans.Devis;
 import com.beans.Module;
 import com.beans.Projet;
@@ -18,8 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class DetailsProjet extends HttpServlet {
-    public static final String ATT_CLIENT = "projet";
-    public static final String ATT_FORM   = "form";
     public static final String PARAM_ID_PROJET = "idProjet";
     public static final String SESSION_PROJETS = "projets";
 

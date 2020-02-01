@@ -51,8 +51,6 @@ public final class CreationClientForm {
         String email = getValeurChamp(request, CHAMP_EMAIL);
         String password = getValeurChamp(request, CHAMP_PASSWORD);
 
-        System.out.println("Parametres, nom : " + nom + " prenom : " + prenom + " adresse : " + adresse + " telephone : " + telephone + " email : " + email);
-
         Client client = new Client();
 
         traiterNom(nom, client);
@@ -73,6 +71,38 @@ public final class CreationClientForm {
         } catch (DAOException e) {
             setErreur("imprévu", "Erreur imprévue lors de la création.");
             resultat = "Échec de la création du client : une erreur imprévue est survenue, merci de réessayer dans quelques instants.";
+            e.printStackTrace();
+        }
+
+        return client;
+    }
+
+    public Client modifierClient(HttpServletRequest request, String chemin,Client client) {
+        String nom = getValeurChamp(request, CHAMP_NOM);
+        String prenom = getValeurChamp(request, CHAMP_PRENOM);
+        String adresse = getValeurChamp(request, CHAMP_ADRESSE);
+        String telephone = getValeurChamp(request, CHAMP_TELEPHONE);
+        String email = getValeurChamp(request, CHAMP_EMAIL);
+        String password = getValeurChamp(request, CHAMP_PASSWORD);
+
+        traiterNom(nom, client);
+        traiterPrenom(prenom, client);
+        traiterAdresse(adresse, client);
+        traiterTelephone(telephone, client);
+        traiterEmail(email, client);
+        traiterPassword(password, client);
+        //traiterImage( client, request, chemin );
+
+        try {
+            if (erreurs.isEmpty()) {
+                clientDao.maj(client);
+                resultat = "Succès de la modification du client.";
+            } else {
+                resultat = "Échec de la modification du client.";
+            }
+        } catch (DAOException e) {
+            setErreur("imprévu", "Erreur imprévue lors de la modification.");
+            resultat = "Échec de la modificatiion du client : une erreur imprévue est survenue, merci de réessayer dans quelques instants.";
             e.printStackTrace();
         }
 
@@ -127,22 +157,10 @@ public final class CreationClientForm {
         try {
             validationPassword(password);
         } catch (FormValidationException e) {
-            setErreur(CHAMP_PRENOM, e.getMessage());
+            setErreur(CHAMP_PASSWORD, e.getMessage());
         }
         client.setPassword(password);
     }
-
-
-
-    /*private void traiterImage( Client client, HttpServletRequest request, String chemin ) {
-        String image = null;
-        try {
-            image = validationImage( request, chemin );
-        } catch ( FormValidationException e ) {
-            setErreur( CHAMP_IMAGE, e.getMessage() );
-        }
-        client.setImage( image );
-    }*/
 
     private void validationNom(String nom) throws FormValidationException {
         if (nom != null) {
@@ -169,10 +187,10 @@ public final class CreationClientForm {
     private void validationAdresse(String adresse) throws FormValidationException {
         if (adresse != null) {
             if (adresse.length() < 10) {
-                throw new FormValidationException("L'adresse de livraison doit contenir au moins 10 caractères.");
+                throw new FormValidationException("L'adresse doit contenir au moins 10 caractères.");
             }
         } else {
-            throw new FormValidationException("Merci d'entrer une adresse de livraison.");
+            throw new FormValidationException("Merci d'entrer une adresse.");
         }
     }
 
@@ -194,81 +212,6 @@ public final class CreationClientForm {
         }
     }
 
-    /*private String validationImage( HttpServletRequest request, String chemin ) throws FormValidationException {
-        /*
-         * Récupération du contenu du champ image du formulaire. Il faut ici
-         * utiliser la méthode getPart().
-         */
-        /*String nomFichier = null;
-        InputStream contenuFichier = null;
-        try {
-            Part part = request.getPart( CHAMP_IMAGE );
-            nomFichier = getNomFichier( part );
-
-            /*
-             * Si la méthode getNomFichier() a renvoyé quelque chose, il s'agit
-             * donc d'un champ de type fichier (input type="file").
-             */
-            /*if ( nomFichier != null && !nomFichier.isEmpty() ) {
-                /*
-                 * Antibug pour Internet Explorer, qui transmet pour une raison
-                 * mystique le chemin du fichier local à la machine du client...
-                 *
-                 * Ex : C:/dossier/sous-dossier/fichier.ext
-                 *
-                 * On doit donc faire en sorte de ne sélectionner que le nom et
-                 * l'extension du fichier, et de se débarrasser du superflu.
-                 */
-    //nomFichier = nomFichier.substring( nomFichier.lastIndexOf( '/' ) + 1 )
-    //      .substring( nomFichier.lastIndexOf( '\\' ) + 1 );
-
-    /* Récupération du contenu du fichier */
-    //contenuFichier = part.getInputStream();
-
-    /* Extraction du type MIME du fichier depuis l'InputStream */
-    //MimeUtil.registerMimeDetector( "eu.medsea.mimeutil.detector.MagicMimeMimeDetector" );
-    //Collection<?> mimeTypes = MimeUtil.getMimeTypes( contenuFichier );
-
-    /*
-     * Si le fichier est bien une image, alors son en-tête MIME
-     * commence par la chaîne "image"
-     */
-    //if ( mimeTypes.toString().startsWith( "image" ) ) {
-    /* Écriture du fichier sur le disque */
-    //  ecrireFichier( contenuFichier, nomFichier, chemin );
-    //} else {
-                    /*throw new FormValidationException( "Le fichier envoyé doit être une image." );
-                }
-            }
-        } catch ( IllegalStateException e ) {
-            /*
-             * Exception retournée si la taille des données dépasse les limites
-             * définies dans la section <multipart-config> de la déclaration de
-             * notre servlet d'upload dans le fichier web.xml
-             */
-    //e.printStackTrace();
-            /*throw new FormValidationException( "Le fichier envoyé ne doit pas dépasser 1Mo." );
-        } catch ( IOException e ) {
-            /*
-             * Exception retournée si une erreur au niveau des répertoires de
-             * stockage survient (répertoire inexistant, droits d'accès
-             * insuffisants, etc.)
-             */
-            /*e.printStackTrace();
-            throw new FormValidationException( "Erreur de configuration du serveur." );
-        } catch ( ServletException e ) {
-            /*
-             * Exception retournée si la requête n'est pas de type
-             * multipart/form-data.
-             */
-            /*e.printStackTrace();
-            throw new FormValidationException(
-                    "Ce type de requête n'est pas supporté, merci d'utiliser le formulaire prévu pour envoyer votre fichier." );
-        }
-
-        return nomFichier;
-    }*/
-
     /*
      * Ajoute un message correspondant au champ spécifié à la map des erreurs.
      */
@@ -286,67 +229,6 @@ public final class CreationClientForm {
             return null;
         } else {
             return valeur;
-        }
-    }
-
-    /*
-     * Méthode utilitaire qui a pour unique but d'analyser l'en-tête
-     * "content-disposition", et de vérifier si le paramètre "filename" y est
-     * présent. Si oui, alors le champ traité est de type File et la méthode
-     * retourne son nom, sinon il s'agit d'un champ de formulaire classique et
-     * la méthode retourne null.
-     */
-    private static String getNomFichier(Part part) {
-        /* Boucle sur chacun des paramètres de l'en-tête "content-disposition". */
-        for (String contentDisposition : part.getHeader("content-disposition").split(";")) {
-            /* Recherche de l'éventuelle présence du paramètre "filename". */
-            if (contentDisposition.trim().startsWith("filename")) {
-                /*
-                 * Si "filename" est présent, alors renvoi de sa valeur,
-                 * c'est-à-dire du nom de fichier sans guillemets.
-                 */
-                return contentDisposition.substring(contentDisposition.indexOf('=') + 1).trim().replace("\"", "");
-            }
-        }
-        /* Et pour terminer, si rien n'a été trouvé... */
-        return null;
-    }
-
-    /*
-     * Méthode utilitaire qui a pour but d'écrire le fichier passé en paramètre
-     * sur le disque, dans le répertoire donné et avec le nom donné.
-     */
-    private void ecrireFichier(InputStream contenuFichier, String nomFichier, String chemin)
-            throws FormValidationException {
-        /* Prépare les flux. */
-        BufferedInputStream entree = null;
-        BufferedOutputStream sortie = null;
-        try {
-            /* Ouvre les flux. */
-            entree = new BufferedInputStream(contenuFichier, TAILLE_TAMPON);
-            sortie = new BufferedOutputStream(new FileOutputStream(new File(chemin + nomFichier)),
-                    TAILLE_TAMPON);
-
-            /*
-             * Lit le fichier reçu et écrit son contenu dans un fichier sur le
-             * disque.
-             */
-            byte[] tampon = new byte[TAILLE_TAMPON];
-            int longueur = 0;
-            while ((longueur = entree.read(tampon)) > 0) {
-                sortie.write(tampon, 0, longueur);
-            }
-        } catch (Exception e) {
-            throw new FormValidationException("Erreur lors de l'écriture du fichier sur le disque.");
-        } finally {
-            try {
-                sortie.close();
-            } catch (IOException ignore) {
-            }
-            try {
-                entree.close();
-            } catch (IOException ignore) {
-            }
         }
     }
 }

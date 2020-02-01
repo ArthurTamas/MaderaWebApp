@@ -1,6 +1,7 @@
 package com.servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,7 +46,7 @@ public class SuppressionClient extends HttpServlet {
                 clientDao.supprimer( clients.get( id ) );
                 /* Puis suppression du client de la Map */
                 clients.remove( id );
-            } catch ( DAOException e ) {
+            } catch (DAOException | SQLException e ) {
                 e.printStackTrace();
             }
             /* Et remplacement de l'ancienne Map en session par la nouvelle */

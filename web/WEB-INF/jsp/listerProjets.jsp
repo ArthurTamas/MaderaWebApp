@@ -11,8 +11,9 @@
     <head>
         <meta charset="utf-8"/>
         <title>Liste des projets existants</title>
-        <link type="text/css" rel="stylesheet" href="<c:url value="/inc/style.css"></c:url>"/>
-    </head>
+        <link rel="stylesheet" href="<c:url value="/inc/boostrap/css/bootstrap.min.css"></c:url>"/>
+        <script src="<c:url value="/inc/boostrap/js/bootstrap.min.css"></c:url>"></script>
+        <link type="text/css" rel="stylesheet" href="<c:url value="/inc/style.css"></c:url>"/>    </head>
     <body>
         <c:import url="/inc/menu.jsp"></c:import>
         <div id="corps">
@@ -67,15 +68,15 @@
 
                                         <%-- Lien vers la servlet de suppression, avec passage du nom du projet - c'est-à-dire la clé de la Map - en paramètre grâce à la balise <c:param></c:param>. --%>
                                     <td class="action">
-                                        <a href="<c:url value="/suppressionProjet"><c:param name="idProjet" value="${ mapProjets.key }" ></c:param></c:url>">
+                                        <a href="<c:url value="/suppressionProjet"><c:param name="idProjet" value="${ mapProjets.key }" ></c:param></c:url>"
+                                           onclick="return confirm('Etes vous sur de vouloir supprimer ce projet?');">
                                             <img src="<c:url value="/inc/supprimer.png"></c:url>" alt="Supprimer"/>
                                         </a>
                                     </td>
                                         <%-- Lien vers la servlet des détails, avec passage du nom du projet - c'est-à-dire la clé de la Map - en paramètre grâce à la balise <c:param></c:param>. --%>
                                     <td class="action">
 
-                                        <a href="<c:url value="/detailsProjet"><c:param name="idProjet" value="${ mapProjets.key }" ></c:param></c:url>"
-                                           class="confirmation">
+                                        <a href="<c:url value="/detailsProjet"><c:param name="idProjet" value="${ mapProjets.key }" ></c:param></c:url>">
                                             <img src="<c:url value="/inc/edit-file-icon.png"></c:url>" alt="Details"/>
                                         </a>
                                     </td>
@@ -87,14 +88,4 @@
             </c:choose>
         </div>
     </body>
-
-    <script type="text/javascript">
-        var elems = document.getElementsByClassName('confirmation');
-        var confirmIt = function (e) {
-            if (!confirm('Are you sure?')) e.preventDefault();
-        };
-        for (var i = 0, l = elems.length; i < l; i++) {
-            elems[i].addEventListener('click', confirmIt, false);
-        }
-    </script>
 </html>
