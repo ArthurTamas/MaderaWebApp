@@ -10,12 +10,14 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-        <title>Liste des projets existants</title>
-        <link rel="stylesheet" href="<c:url value="/inc/boostrap/css/bootstrap.min.css"></c:url>"/>
-        <script src="<c:url value="/inc/boostrap/js/bootstrap.min.css"></c:url>"></script>
-        <link type="text/css" rel="stylesheet" href="<c:url value="/inc/style.css"></c:url>"/>    </head>
+        <script src="<c:url value="/inc/jquery-3.4.1.js"></c:url>"></script>
+        <link rel="stylesheet" href="<c:url value="/inc/bootstrap/css/bootstrap.css"></c:url>"/>
+        <script src="<c:url value="/inc/bootstrap/js/bootstrap.js"></c:url>"></script>
+        <link type="text/css" rel="stylesheet" href="<c:url value="/inc/style.css"></c:url>"/>
+    </head>
     <body>
         <c:import url="/inc/menu.jsp"></c:import>
+        <%--<div class="container-md">--%>
         <div id="corps">
             <c:choose>
                 <%-- Si aucun projet n'existe en session, affichage d'un message par défaut. --%>
@@ -77,7 +79,8 @@
                                     <td class="action">
 
                                         <a href="<c:url value="/detailsProjet"><c:param name="idProjet" value="${ mapProjets.key }" ></c:param></c:url>">
-                                            <img src="<c:url value="/inc/edit-file-icon.png"></c:url>" alt="Details"/>
+                                            <img src="<c:url value="/inc/edit-file-icon.png"></c:url>"
+                                                 alt="Details"/>
                                         </a>
                                     </td>
                                 </tr>

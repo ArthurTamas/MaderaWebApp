@@ -2,32 +2,49 @@
 ---------------------------- */
 /*body, p, legend, label, input, select {
     font: normal 8pt verdana, helvetica, sans-serif;
-}
+}*/
 
 select {
-    margin: 3px 3px 0px 0px;
+    margin: 0px 3px 3px 0px;
     border: 1px #999 solid;
 }
 
 fieldset {
-    font: normal 8pt verdana, helvetica, sans-serif;
-    font-weight: bold;
+    /*font: normal 8pt verdana, helvetica, sans-serif;*/
+    /*font-weight: bold;*/
 }
 
 h1#acceuil {
     padding: 10px;
     margin: 50px;
 }
-*/
+h1{
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+#margintop{
+    margin-top: 50px !important;
+}
+
 p#composMaison {
     font-weight: bold;
-    margin-top: 5px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-size: 1.1rem
 }
-a{
+
+label#composMaison {
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-size: 1.1rem
+}
+a {
     color: #004bc8;
 }
 
-a#deconnexion{
+a#deconnexion {
     color: #c00003;
 }
 
@@ -60,6 +77,10 @@ form input.sansLabel {
     margin-left: 200px;
 }
 
+#btn {
+    margin-left: 10px;
+}
+
 /* Styles et couleurs ----------------------------------------------
 ---------------------------- */
 
@@ -88,11 +109,12 @@ div#menu {
     padding: 10px;
     margin: 10px;
 }
-
-div#corps {
-    margin: 10px;
-}
 */
+div#corps {
+    margin: 40px auto;
+    width: max-content;
+}
+
 form .erreur {
     color: #900;
 }
@@ -129,15 +151,19 @@ th {
     padding: 5px;
 }
 
+.bg-light {
+    background-color: #00000033 !important;
+}
+
 th.action {
     border: 1px solid #900;
     color: #900;
 }
 
- th.actionDetail {
-     border: 1px solid #00991b;
-     color: #00991b;
- }
+th.actionDetail {
+    border: 1px solid #00991b;
+    color: #00991b;
+}
 
 td {
     border: 1px solid #ddd;

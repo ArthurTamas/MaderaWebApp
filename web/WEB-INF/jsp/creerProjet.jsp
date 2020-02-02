@@ -26,8 +26,9 @@
     </head>
     <body>
         <c:import url="/inc/menu.jsp"></c:import>
-        <div>
-            <form method="post" action="<c:url value="/creationProjet"></c:url>" <%--enctype="multipart/form-data"--%>>
+        <div class="container">
+            <form method="post"
+                  action="<c:url value="/creationProjet"></c:url>" <%--enctype="multipart/form-data"--%>>
                 <fieldset>
                     <legend>Informations client</legend>
                     <%-- Si et seulement si la Map des clients en session n'est pas vide, alors on propose un choix à l'utilisateur --%>
@@ -35,7 +36,8 @@
                         <label for="choixNouveauClient">Nouveau client ? <span class="requis">*</span></label>
                         <input type="radio" id="choixNouveauClient" name="choixNouveauClient" value="nouveauClient"
                                checked/> Oui
-                        <input type="radio" id="choixNouveauClient" name="choixNouveauClient" value="ancienClient"/> Non
+                        <input type="radio" id="choixNouveauClient" name="choixNouveauClient"
+                               value="ancienClient"/> Non
                         <br/><br/>
                     </c:if>
 
@@ -108,7 +110,7 @@
                            value="<c:out value="${projet.adresse}"></c:out>" size="20" maxlength="200"/>
                     <span class="erreur">${form.erreurs['adresseProjet']}</span>
                     <br/>
-                    <p id="composMaison">Composition de la maison</p>
+                    <p id="composMaison">Maison</p>
 
                     <c:if test="${ !empty sessionScope.gammes }">
                         <label for="listGammes">Gamme de maison <span class="requis">*</span></label>
@@ -137,11 +139,10 @@
                     </c:if>
                     <p class="info">${ form.resultat }</p>
                 </fieldset>
-                <input type="submit" value="Valider"/>
-                <input type="reset" value="Remettre à zéro"/> <br/>
+                <input class="btn btn-primary" id="btn" type="submit" value="Valider"/>
+                <input class="btn btn-dark" id="btn" type="reset" value="Remettre à zéro"/> <br/>
             </form>
         </div>
-
         <%-- Inclusion de la bibliothèque jQuery. Vous trouverez des cours sur JavaScript et jQuery aux adresses suivantes :
                - http://www.siteduzero.com/tutoriel-3-309961-dynamisez-vos-sites-web-avec-javascript.html
                - http://www.siteduzero.com/tutoriel-3-659477-un-site-web-dynamique-avec-jquery.html

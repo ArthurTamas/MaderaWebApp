@@ -7,12 +7,12 @@
 --%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%-- div clas="menu" --%>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbarDark">
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <c:if test="${ sessionScope.userGroup == 'admin' || sessionScope.userGroup == 'commercial'}">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/creationClient"/>">Créer un nouveau client</a>
                 </li>
                 <li class="nav-item">
@@ -26,7 +26,7 @@
                 </li>
             </c:if>
             <c:if test="${  sessionScope.userGroup == 'client'}">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link"
                        href="<c:url value="/detailsClient"><c:param name="idClient" value="${ sessionScope.sessionUtilisateur.id}" ></c:param></c:url>">Mes
                         informations</a>
@@ -38,6 +38,9 @@
                     <a class="nav-link" href="<c:url value="/notImplement.jsp"/>">Contact</a>
                 </li>
             </c:if>
+            <li class="nav-item align-content-md-end">
+                <a class="nav-link" id="deconnexion" href="<c:url value="/deconnexion"/>">Déconnexion</a>
+            </li>
         </ul>
     </div>
 </nav>

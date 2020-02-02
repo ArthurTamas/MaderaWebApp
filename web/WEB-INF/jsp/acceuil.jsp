@@ -11,14 +11,18 @@
     <head>
         <meta charset="utf-8"/>
         <title>Acceuil</title>
-        <link rel="stylesheet" href="<c:url value="/inc/boostrap/css/bootstrap.min.css"></c:url>"/>
-        <script src="<c:url value="/inc/boostrap/js/bootstrap.min.css"></c:url>"></script>
+        <script src="<c:url value="/inc/jquery-3.4.1.js"></c:url>"></script>
+        <link rel="stylesheet" href="<c:url value="/inc/bootstrap/css/bootstrap.css"></c:url>"/>
+        <script src="<c:url value="/inc/bootstrap/js/bootstrap.js"></c:url>"></script>
         <link type="text/css" rel="stylesheet" href="<c:url value="/inc/style.css"></c:url>"/>
     </head>
     <body>
         <c:import url="/inc/menu.jsp"/>
-        <div>
-            <h1 id="acceuil">Bonjour <c:out value="${sessionUtilisateur.prenom} ${sessionUtilisateur.nom}"></c:out></h1>
+        <div class="container-md">
+            <div>
+                <h1 id="acceuil">Bonjour <c:out
+                        value="${sessionUtilisateur.prenom} ${sessionUtilisateur.nom}"></c:out></h1>
+            </div>
         </div>
     </body>
 </html>
